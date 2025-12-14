@@ -312,6 +312,24 @@ const Home = () => {
   }, []);
 
   // =============================================
+const handleMouseMove = (e) => {
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+
+  requestAnimationFrame(() => {
+    btn.style.transform = `translate(${x * 0.04}px, ${y * 0.04}px) scale(1.05)`;
+  });
+};
+
+const handleMouseLeave = (e) => {
+  e.currentTarget.style.transform = "translate(0px, 0px) scale(1)";
+};
+
+
+  
   return (
     <section>
       {/* HERO SECTION */}
@@ -849,7 +867,7 @@ const Home = () => {
         </div>
       </section>
  
-    <section className="relative  bg-[#1b1e1f] text-white py-12">
+    <section className="relative  bg-[#1b1e1f] text-white py-20">
       <div className="max-w-[1800px] mx-auto px-6">
 
         {/* TITLE */}
@@ -861,22 +879,27 @@ const Home = () => {
         </p>
 
         {/* TABS */}
-        <div className="flex justify-center   mt-25 gap-4 z-10 relative">
-          {["Events", "Testimonials", "Blogs"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-8 py-3 rounded-full text-sm font-medium
-                         cursor-pointer transition-all duration-300
-                         hover:scale-105 active:scale-95
-                         ${activeTab === tab
-                           ? "bg-white text-black shadow-lg"
-                           : "bg-white/10 text-white hover:bg-white/20"}`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+<div className="flex justify-center mt-16 gap-4 z-10 relative">
+  {["Events", "Testimonials", "Blogs"].map((tab) => (
+    <button
+      key={tab}
+      onMouseEnter={() => setActiveTab(tab)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`px-12 py-3 rounded-full text-sm font-medium
+        cursor-pointer transition-transform duration-300 will-change-transform hover:text-blue-800
+        ${
+          activeTab === tab
+            ? "bg-white text-black shadow-lg"
+            : "bg-white/10 text-white hover:bg-white/20"
+        }`}
+    >
+      {tab}
+    </button>
+  ))}
+</div>
+
+
 
         {/* CONTENT AREA */}
         <div className="mt-16 max-h-[1000px]">
@@ -884,130 +907,148 @@ const Home = () => {
           {/* EVENTS */}
 
 {activeTab === "Events" && (
-  <div className="grid grid-cols-12 gap-4"> {/* gap কমানো */}
+  <div className="grid grid-cols-12 gap-5">
 
-    {/* LEFT BIG CARD */}
-    <div className="col-span-12 lg:col-span-6 row-span-2 relative rounded-2xl overflow-hidden group min-h-[300px]">
+    {/* LEFT BIG FEATURE CARD */}
+    <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
       <img
         src={eventsMain}
-        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-      <div className="absolute bottom-5 left-5 z-10 text-white">
-        <h3 className="text-xl font-semibold">Testimonials</h3>
-        <p className="mt-1 text-sm text-gray-200">Latest updates & highlights</p>
-        <button className="mt-3 px-5 py-2 text-sm bg-blue-600 rounded-full">
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+      {/* Content */}
+      <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
+        <h3 className="text-2xl font-semibold leading-tight">
+          Events & Highlights
+        </h3>
+        <p className="mt-2 text-sm text-gray-200">
+          Latest moments, launches & global presence
+        </p>
+
+        <button className="mt-4 inline-flex items-center gap-2 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
           Explore
         </button>
       </div>
     </div>
 
     {/* RIGHT SIDE GRID */}
-    <div className="col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-3">
+    <div className="  col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
 
       {/* Card 1 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group min-h-[1px]">
+      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
         <img
           src={auto}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
           Zeetex UAE
         </h4>
       </div>
 
       {/* Card 2 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group min-h-[170px]">
+      <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[600px]">
         <img
           src={launch}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
           Zeetex Qatar
         </h4>
       </div>
 
-      {/* Card 3 – Vertical */}
-      <div className="col-span-3 row-span-2 relative rounded-2xl overflow-hidden  min-h-[360px] group min-w-[865px]  ">
+      {/* Card 3 – Feature Vertical */}
+      <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[300px]">
         <img
           src={drift}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
           Zeetex Iraq
         </h4>
       </div>
 
     </div>
+
   </div>
 )}
+
 
 
           {/* TESTIMONIALS */}
 {activeTab === "Testimonials" && (
-  <div className="grid grid-cols-12 gap-4"> {/* gap কমানো */}
+  <div className="grid grid-cols-12 gap-5">
 
-    {/* LEFT BIG CARD */}
-    <div className="col-span-12 lg:col-span-6 row-span-2 relative rounded-2xl overflow-hidden group min-h-[380px]">
+    {/* LEFT BIG FEATURE CARD */}
+    <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
       <img
         src={eventsMain}
-        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-      <div className="absolute bottom-5 left-5 z-10 text-white">
-        <h3 className="text-xl font-semibold">Testimonials</h3>
-        <p className="mt-1 text-sm text-gray-200">Latest updates & highlights</p>
-        <button className="mt-3 px-5 py-2 text-sm bg-blue-600 rounded-full">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+      <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
+        <h3 className="text-2xl font-semibold leading-tight">
+          Testimonials
+        </h3>
+        <p className="mt-2 text-sm text-gray-200">
+          What our global partners say about us
+        </p>
+        <button className="mt-4 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
           Explore
         </button>
       </div>
     </div>
 
     {/* RIGHT SIDE GRID */}
-    <div className="col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-3">
+    <div className="col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
 
       {/* Card 1 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group min-h-[170px]">
+      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
         <img
           src={auto}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
           Zeetex UAE
         </h4>
       </div>
 
       {/* Card 2 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group min-h-[170px]">
+      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
         <img
           src={launch}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
           Zeetex Qatar
         </h4>
       </div>
 
-      {/* Card 3 – Vertical */}
-      <div className="col-span-3 row-span-2 relative rounded-2xl overflow-hidden  min-h-[360px] group min-w-[865px]  ">
+      {/* Card 3 – Vertical Feature */}
+      <div className="col-span-3 row-span-2 relative rounded-2xl overflow-hidden group h-[300px] w-[870px]">
         <img
           src={drift}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <h4 className="absolute bottom-3 left-3 text-sm text-white font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
           Zeetex Iraq
         </h4>
       </div>
 
     </div>
+
   </div>
 )}
+
 
 
 
@@ -1017,7 +1058,7 @@ const Home = () => {
 
     {/* LEFT BIG CARD */}
     <div className="col-span-12 md:col-span-6 relative rounded-3xl overflow-hidden group
-                    cursor-pointer min-h-[380px] md:min-h-[420px] lg:min-h-[460px]
+                    cursor-pointer min-h-[380px] md:min-h-[420px] lg:min-h-[600px]
                     transition-transform duration-300 hover:scale-[1.02] active:scale-[0.97]">
       <img
         src={eventsMain}
@@ -1046,11 +1087,11 @@ const Home = () => {
     {/* RIGHT SIDE - FLEX */}
 <div className="col-span-12 md:col-span-6 flex flex-wrap gap-4">
 
-  {/* CARD 2 — FULL / WIDE (FIRST) */}
+  {/* CARD 2 — FULL / WIDE (TOP) */}
   <div
     className="relative rounded-3xl overflow-hidden group cursor-pointer
-               order-1 min-w-full
-               min-h-[180px] md:min-h-[250px]
+               order-1 w-full
+               h-[220px] md:h-[300px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
   >
     <img
@@ -1064,11 +1105,11 @@ const Home = () => {
     </h4>
   </div>
 
-  {/* CARD 1 */}
+  {/* CARD 1 — LEFT BOTTOM */}
   <div
     className="relative rounded-3xl overflow-hidden group cursor-pointer
-               order-2 flex-1 min-w-[48%]
-               min-h-[200px]
+               order-2 w-[48%] md:w-[48%]
+               h-[200px] md:h-[280px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
   >
     <img
@@ -1082,11 +1123,11 @@ const Home = () => {
     </h4>
   </div>
 
-  {/* CARD 3 */}
+  {/* CARD 3 — RIGHT BOTTOM */}
   <div
     className="relative rounded-3xl overflow-hidden group cursor-pointer
-               order-3 flex-1 min-w-[48%]
-               min-h-[200px]
+               order-3 w-[48%] md:w-[50%]
+               h-[200px] md:h-[280px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
   >
     <img
@@ -1103,6 +1144,7 @@ const Home = () => {
 </div>
 
 
+
   </div>
 )}
 
@@ -1111,7 +1153,7 @@ const Home = () => {
     </section>
 {/* ================================== */}
 
- <section className="relative w-full bg-gradient-to-b from-black to-gray-900 py-30 overflow-hidden">
+ <section className="relative py-30 w-full bg-gradient-to-b from-black to-gray-900 py- overflow-hidden">
 
       {/* Heading */}
       <div className="text-center mb-16 px-4">
