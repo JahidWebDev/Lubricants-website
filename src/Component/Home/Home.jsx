@@ -2,14 +2,44 @@
 // Home.jsx
 import { useState, useEffect, useRef } from "react";
 import {
+  FaChevronDown,
   FaFacebook,
   FaTwitter,
   FaInstagram,
   FaYoutube,
   FaLinkedin,
-  FaChevronDown,
 } from "react-icons/fa";
 
+
+
+
+const socialIcons = [
+  {
+    Icon: FaFacebook,
+    color: "group-hover:text-[#1877F2]",
+    link: "https://www.facebook.com",
+  },
+  {
+    Icon: FaTwitter,
+    color: "group-hover:text-[#1DA1F2]",
+    link: "https://www.twitter.com",
+  },
+  {
+    Icon: FaInstagram,
+    color: "group-hover:text-pink-500",
+    link: "https://www.instagram.com",
+  },
+  {
+    Icon: FaYoutube,
+    color: "group-hover:text-[#FF0000]",
+    link: "https://www.youtube.com",
+  },
+  {
+    Icon: FaLinkedin,
+    color: "group-hover:text-[#0A66C2]",
+    link: "https://www.linkedin.com",
+  },
+];
 gsap.registerPlugin(Draggable);
 import { Draggable } from "gsap/Draggable";
 import gsap from "gsap";
@@ -32,6 +62,9 @@ import sm3 from "../../Images/sm0001a3.jpg";
 import sm4 from "../../Images/sm0001a4.jpg";
 import sm5 from "../../Images/sm0001a5.jpg";
 import sm6 from "../../Images/sm0001a6.jpg";
+
+import menuImg from "../../Images/menupcr.jpg";
+
 
 
 // IMAGES
@@ -93,7 +126,6 @@ const navItems = [
     ],
   },
 ];
-
 const categories = ["Tyres", "Batteries", "Lubricants"];
 const images = {
   Tyres: [TyreLeft, TyreLeft, TyreLeft],
@@ -107,7 +139,15 @@ const imagestwo = [sm1, sm2, sm3, sm4, sm5, sm6, ];
 const CARD_WIDTH = 320;
 
 const Home = () => {
+const hoverTimeout = useRef(null);
 
+
+
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const activeItem = navItems.find(
+    (item) => item.name === activeDropdown
+  );
  const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -209,7 +249,7 @@ const Home = () => {
   }, []);
 
   const [active, setActive] = useState("Tyres");
-  const [activeDropdown, setActiveDropdown] = useState(null);
+
   const [slide, setSlide] = useState(false);
 
   const wrapperRef = useRef(null);
@@ -338,66 +378,141 @@ const handleMouseLeave = (e) => {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${Banner})` }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
+          
         </div>
 
         {/* NAVBAR */}
-        <nav className="relative z-50 backdrop-blur-lg bg-transparent border-b border-white/10">
-          <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-            <img src={Logo} alt="Logo" className="h-16 w-auto" />
+  
+ <nav
+      className={`relative z-50 transition-colors duration-300 ${
+        activeDropdown ? "bg-white" : "bg-[#00000055]"
+      }`}
+    >
+      <div className="max-w-[1300px] mx-auto px-6 py-4 relative flex items-center justify-between">
+        {/* LOGO */}
+        <img src={Logo} alt="Logo" className="h-16 w-auto" />
 
-            <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2">
-              <div className="flex items-center space-x-12">
-                {navItems.map((item) => (
-                  <div
-                    key={item.name}
-                    className="relative"
-                    onMouseEnter={() => setActiveDropdown(item.name)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+        {/* NAV ITEMS */}
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-7">
+          {navItems.map((item) => (
+<div className="relative group"
+  key={item.name}
+      onMouseEnter={() => setActiveDropdown(item.name)} // show immediately
+     
+>
+  <button
+    className={`
+      flex items-center space-x-2
+      px-3 py-2 rounded-md
+      text-[15px] font-medium
+      transition-all duration-300
+      ${activeDropdown ? "text-black" : "text-white"}
+    `}
+  >
+    <span>{item.name}</span>
+    <FaChevronDown
+      size={14}
+      className={`transition-transform duration-300 ${
+        activeDropdown === item.name ? "rotate-180 text-black" : "text-white"
+      }`}
+    />
+  </button>
+</div>
+
+
+          ))}
+        </div>
+
+        {/* SOCIAL ICONS */}
+        <div className="hidden md:flex items-center space-x-5">
+          {socialIcons.map(({ Icon, color, link }, idx) => (
+            <a
+              key={idx}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`
+                group p-2 rounded-full transition-all duration-300
+                ${
+                  activeDropdown
+                    ? "bg-black/5 hover:bg-black/10"
+                    : "bg-white/10 hover:bg-white/20"
+                }
+              `}
+            >
+              <Icon
+                size={20}
+                className={`
+                  transition-colors duration-300
+                  ${activeDropdown ? "text-black" : "text-white"}
+                  ${color}
+                `}
+              />
+            </a>
+          ))}
+        </div>
+
+        {/* SINGLE FIXED CENTER DROPDOWN */}
+        {activeDropdown && activeItem && (
+          <div
+            className="
+              absolute top-full left-1/2 -translate-x-1/2
+              w-[1921px] h-[500px]
+              bg-white/95 backdrop-blur-lg
+             
+           
+              z-50 flex overflow-hidden
+            "
+            onMouseEnter={() => setActiveDropdown(activeDropdown)}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            {/* LEFT MENU */}
+            <div className="w-[300px] bg-white border-r border-gray-200">
+              {activeItem.dropdown.map((sub, index) => (
+                <button
+                  key={index}
+                  className="
+                    w-full text-left px-6 py-4 text-sm font-medium
+                    text-gray-700
+                    hover:bg-blue-50 hover:text-blue-600
+                   
+                  "
+                >
+                  {sub}
+                </button>
+              ))}
+            </div>
+
+            {/* RIGHT IMAGE */}
+            <div className="flex-1 relative">
+              <img
+                src={menuImg}
+                alt="Product Preview"
+                className="w-full h-full object-cover "
+              />
+              <div className="absolute inset-0 bg-black/40 flex items-center px-10">
+                <div className="text-white max-w-lg">
+                  <p className="text-sm mb-2 opacity-90">
+                    Grip that inspires. Comfort that moves.
+                  </p>
+                  <h2 className="text-3xl font-bold leading-snug mb-4">
+                    Control that lasts.
+                  </h2>
+                  <button
+                    className="
+                      px-6 py-2 bg-blue-600 hover:bg-blue-700
+                      rounded-full text-sm font-semibold transition
+                    "
                   >
-                    <button className="flex items-center space-x-2 text-white hover:text-blue-200 text-lg font-medium transition">
-                      <span>{item.name}</span>
-                      <FaChevronDown
-                        size={14}
-                        className={`transition-transform duration-300 ${
-                          activeDropdown === item.name ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-
-                    {activeDropdown === item.name && (
-                      <div className="absolute top-full left-0 mt-2 w-64 backdrop-blur-xl bg-white/90 rounded-lg shadow-2xl py-2 z-50 border border-white/30">
-                        {item.dropdown.map((sub) => (
-                          <a
-                            key={sub}
-                            href="#"
-                            className="block px-4 py-3 text-gray-800 hover:bg-white/80 hover:text-blue-600 transition"
-                          >
-                            {sub}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                    Explore Products
+                  </button>
+                </div>
               </div>
             </div>
-
-            <div className="hidden md:flex items-center space-x-6">
-              {[FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin].map(
-                (Icon, idx) => (
-                  <a
-                    key={idx}
-                    href="#"
-                    className="text-white hover:text-blue-300 bg-white/10 p-2 rounded-full backdrop-blur-sm hover:bg-white/20"
-                  >
-                    <Icon size={20} />
-                  </a>
-                )
-              )}
-            </div>
           </div>
-        </nav>
+        )}
+      </div>
+    </nav>
 
         {/* HERO CONTENT CENTER */}
         <div className="relative z-40 flex items-end justify-center mt-[600px] text-center">
