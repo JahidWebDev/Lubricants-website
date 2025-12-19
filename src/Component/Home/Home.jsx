@@ -10,6 +10,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
 
 
 
@@ -63,7 +64,24 @@ import sm4 from "../../Images/sm0001a4.jpg";
 import sm5 from "../../Images/sm0001a5.jpg";
 import sm6 from "../../Images/sm0001a6.jpg";
 
-import menuImg from "../../Images/menupcr.jpg";
+import menuImg1 from "../../Images/menupcr.jpg";
+import menuImg2 from "../../Images/menupcr0.jpg";
+import menuImg3 from "../../Images/menupcr2.jpg";
+import menuImg4 from "../../Images/menupcr3.jpg";
+import menuImg5 from "../../Images/menupcr4.jpg";
+
+import menuImg6 from "../../Images/menupcr5.jpg";
+import menuImg7 from "../../Images/menupcr6.jpg";
+import menuImg8 from "../../Images/menupcr7.jpg";
+import menuImg9 from "../../Images/menupcr8.jpg";
+import menuImg10 from "../../Images/menupcr9.jpg";
+
+import menuImg11 from "../../Images/menupcr10.jpg";
+import menuImg12 from "../../Images/menupcr11.jpg";  // ✅ fixed
+import menuImg13 from "../../Images/menupcr12.jpg";
+import menuImg14 from "../../Images/menupcr13.jpg";  // ✅ fixed
+import menuImg15 from "../../Images/menupcr14.jpg";
+
 
 
 
@@ -97,35 +115,39 @@ const dealerCards = [
 const navItems = [
   {
     name: "Our Products",
+    path: "/OurProducts",
     dropdown: [
-      "Industrial Chemicals",
-      "Petroleum Products",
-      "Lubricants",
-      "Specialty Gases",
-      "Agricultural Products",
+      { title: "Industrial Chemicals", image: menuImg1, link: "/products/chemicals", description: "High quality industrial chemicals." },
+      { title: "Petroleum Products", image: menuImg2, link: "/products/petroleum", description: "Reliable petroleum solutions." },
+      { title: "Lubricants", image: menuImg3, link: "/products/lubricants", description: "Premium lubricants for industries." },
+      { title: "Specialty Gases", image: menuImg4, link: "/products/gases", description: "High purity specialty gases." },
+      { title: "Agricultural Products", image: menuImg5, link: "/products/agriculture", description: "Solutions for modern agriculture." },
     ],
   },
   {
     name: "Explore",
+    path: "/explore",
     dropdown: [
-      "Company Overview",
-      "Sustainability",
-      "Innovation",
-      "Global Presence",
-      "Careers",
+      { title: "Company Overview", image: menuImg6, link: "/explore/overview", description: "Know more about our company." },
+      { title: "Sustainability", image: menuImg7, link: "/explore/sustainability", description: "Our commitment to sustainability." },
+      { title: "Innovation", image: menuImg8, link: "/explore/innovation", description: "Driving innovation globally." },
+      { title: "Global Presence", image: menuImg9, link: "/explore/global", description: "Our presence worldwide." },
+      { title: "Careers", image: menuImg10, link: "/explore/careers", description: "Join our team today." },
     ],
   },
   {
     name: "Contact Us",
+    path: "/contact-us",
     dropdown: [
-      "Sales Inquiry",
-      "Technical Support",
-      "Distributor Network",
-      "Media Contact",
-      "Location Map",
+      { title: "Sales Inquiry", image: menuImg11, link: "/contact/sales", description: "Reach our sales team." },
+      { title: "Technical Support", image: menuImg12, link: "/contact/support", description: "24/7 technical support." },
+      { title: "Distributor Network", image: menuImg13, link: "/contact/distributor", description: "Our global distributors." },
+      { title: "Media Contact", image: menuImg14, link: "/contact/media", description: "Press & media inquiries." },
+      { title: "Location Map", image: menuImg15, link: "/contact/location", description: "Find our locations." },
     ],
   },
 ];
+
 const categories = ["Tyres", "Batteries", "Lubricants"];
 const images = {
   Tyres: [TyreLeft, TyreLeft, TyreLeft],
@@ -140,6 +162,8 @@ const CARD_WIDTH = 320;
 
 const Home = () => {
 const hoverTimeout = useRef(null);
+const [hoveredIndex, setHoveredIndex] = useState(null);
+const [activeIndex, setActiveIndex] = useState(0);
 
 
 
@@ -457,7 +481,7 @@ const handleMouseLeave = (e) => {
           <div
             className="
               absolute top-full left-1/2 -translate-x-1/2
-              w-[1921px] h-[500px]
+              w-[145.80%] h-[500px]
               bg-white/95 backdrop-blur-lg
              
            
@@ -466,49 +490,80 @@ const handleMouseLeave = (e) => {
             onMouseEnter={() => setActiveDropdown(activeDropdown)}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            {/* LEFT MENU */}
-            <div className="w-[300px] bg-white border-r border-gray-200">
-              {activeItem.dropdown.map((sub, index) => (
-                <button
-                  key={index}
-                  className="
-                    w-full text-left px-6 py-4 text-sm font-medium
-                    text-gray-700
-                    hover:bg-blue-50 hover:text-blue-600
-                   
-                  "
-                >
-                  {sub}
-                </button>
-              ))}
-            </div>
+ {/* LEFT MENU */}
+<div className="group w-[300px] bg-[#ededed] border-r border-gray-200">
+{activeItem.dropdown.map((sub, index) => (
+  <button
+    key={index}
+    onMouseEnter={() => setHoveredIndex(index)}
+    onMouseLeave={() => {
+      setHoveredIndex(null);
+      setActiveIndex(index); // last hovered remains active
+    }}
+    className={`
+      w-full text-left px-6 py-4 pl-10
+      font-['Avenir',sans-serif]
+      text-[15px] font-bold leading-[22.5px]
+      text-[#080808]
 
-            {/* RIGHT IMAGE */}
-            <div className="flex-1 relative">
-              <img
-                src={menuImg}
-                alt="Product Preview"
-                className="w-full h-full object-cover "
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-center px-10">
-                <div className="text-white max-w-lg">
-                  <p className="text-sm mb-2 opacity-90">
-                    Grip that inspires. Comfort that moves.
-                  </p>
-                  <h2 className="text-3xl font-bold leading-snug mb-4">
-                    Control that lasts.
-                  </h2>
-                  <button
-                    className="
-                      px-6 py-2 bg-blue-600 hover:bg-blue-700
-                      rounded-full text-sm font-semibold transition
-                    "
-                  >
-                    Explore Products
-                  </button>
-                </div>
-              </div>
-            </div>
+      ${
+        hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
+          ? "bg-white"
+          : ""
+      }
+
+      hover:text-[rgb(27,66,152)]
+      transition-colors duration-200
+    `}
+  >
+    {sub.title}
+  </button>
+))}
+
+</div>
+
+{/* RIGHT IMAGE + TEXT + BUTTON */}
+<div className="flex-1 relative overflow-hidden">
+  {/* Only one image/text visible at a time */}
+  <img
+    src={
+      hoveredIndex !== null
+        ? activeItem.dropdown[hoveredIndex].image
+        : activeItem.dropdown[0].image
+    }
+    alt={
+      hoveredIndex !== null
+        ? activeItem.dropdown[hoveredIndex].title
+        : activeItem.dropdown[0].title
+    }
+    className="w-full h-full object-cover transition-all duration-500"
+  />
+  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
+    <div className="text-white max-w-lg">
+      <p className="text-sm mb-2 opacity-90">
+        {hoveredIndex !== null
+          ? activeItem.dropdown[hoveredIndex].description
+          : activeItem.dropdown[0].description}
+      </p>
+      <h2 className="text-3xl font-bold leading-snug mb-4">
+        {hoveredIndex !== null
+          ? activeItem.dropdown[hoveredIndex].title
+          : activeItem.dropdown[0].title}
+      </h2>
+      <Link
+        to={
+          hoveredIndex !== null
+            ? activeItem.dropdown[hoveredIndex].link
+            : activeItem.dropdown[0].link
+        }
+        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
+      >
+        Explore Products
+      </Link>
+    </div>
+  </div>
+</div>
+
           </div>
         )}
       </div>
