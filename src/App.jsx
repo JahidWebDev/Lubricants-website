@@ -1,23 +1,68 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import './App.css';
+
 import Home from "./Component/Home/Home";
 import Footer from "./Component/Footer/Footer";
 import OurProducts from "./Component/OurProducts/OurProducts";
+import PageLoader from "./Component/PageLoader";
 
+// Wrapper for route transition
+function RouteWithLoader({ children }) {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // ⏱ 3 seconds
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  return (
+    <>
+      <PageLoader show={loading} />
+      {!loading && children}
+    </>
+  );
+}
 
 
 function App() {
   return (
     <BrowserRouter>
-    
-     <Routes>
-  {/* Home Page */}
-  <Route path="/" element={<Home />} />
-  <Route path="/OurProducts" element={<OurProducts />} />
+      <RouteWithLoader>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/OurProducts" element={<OurProducts />} />
 
-</Routes>
-<Footer/>
+          {/* Products */}
+          <Route path="/products/chemicals" element={<OurProducts />} />
+          <Route path="/products/petroleum" element={<OurProducts />} />
+          <Route path="/products/lubricants" element={<OurProducts />} />
+          <Route path="/products/gases" element={<OurProducts />} />
+          <Route path="/products/agriculture" element={<OurProducts />} />
+
+          {/* Explore */}
+          <Route path="/explore/overview" element={<Home />} />
+          <Route path="/explore/sustainability" element={<Home />} />
+          <Route path="/explore/innovation" element={<Home />} />
+          <Route path="/explore/global" element={<Home />} />
+          <Route path="/explore/careers" element={<Home />} />
+
+          {/* Contact */}
+          <Route path="/contact/sales" element={<Home />} />
+          <Route path="/contact/support" element={<Home />} />
+          <Route path="/contact/distributor" element={<Home />} />
+          <Route path="/contact/media" element={<Home />} />
+          <Route path="/contact/location" element={<Home />} />
+        </Routes>
+      </RouteWithLoader>
+
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -2,17 +2,17 @@
 // Home.jsx
 import { useState, useEffect, useRef } from "react";
 import {
-  FaChevronDown,
   FaFacebook,
   FaTwitter,
   FaInstagram,
   FaYoutube,
   FaLinkedin,
+  FaBars,
+  FaTimes,
+  FaChevronDown,
+  FaChevronRight,
 } from "react-icons/fa";
-
 import { Link } from "react-router-dom";
-
-
 
 const socialIcons = [
   {
@@ -77,13 +77,10 @@ import menuImg9 from "../../Images/menupcr8.jpg";
 import menuImg10 from "../../Images/menupcr9.jpg";
 
 import menuImg11 from "../../Images/menupcr10.jpg";
-import menuImg12 from "../../Images/menupcr11.jpg";  // ✅ fixed
+import menuImg12 from "../../Images/menupcr11.jpg"; // ✅ fixed
 import menuImg13 from "../../Images/menupcr12.jpg";
-import menuImg14 from "../../Images/menupcr13.jpg";  // ✅ fixed
+import menuImg14 from "../../Images/menupcr13.jpg"; // ✅ fixed
 import menuImg15 from "../../Images/menupcr14.jpg";
-
-
-
 
 // IMAGES
 import eventsMain from "../../Images/menucontactus-1.jpg";
@@ -117,33 +114,108 @@ const navItems = [
     name: "Our Products",
     path: "/OurProducts",
     dropdown: [
-      { title: "Industrial Chemicals", image: menuImg1, link: "/products/chemicals", description: "High quality industrial chemicals." },
-      { title: "Petroleum Products", image: menuImg2, link: "/products/petroleum", description: "Reliable petroleum solutions." },
-      { title: "Lubricants", image: menuImg3, link: "/products/lubricants", description: "Premium lubricants for industries." },
-      { title: "Specialty Gases", image: menuImg4, link: "/products/gases", description: "High purity specialty gases." },
-      { title: "Agricultural Products", image: menuImg5, link: "/products/agriculture", description: "Solutions for modern agriculture." },
+      {
+        title: "Industrial Chemicals",
+        image: menuImg1,
+        link: "/products/chemicals",
+        description: "High quality industrial chemicals.",
+      },
+      {
+        title: "Petroleum Products",
+        image: menuImg2,
+        link: "/products/petroleum",
+        description: "Reliable petroleum solutions.",
+      },
+      {
+        title: "Lubricants",
+        image: menuImg3,
+        link: "/products/lubricants",
+        description: "Premium lubricants for industries.",
+      },
+      {
+        title: "Specialty Gases",
+        image: menuImg4,
+        link: "/products/gases",
+        description: "High purity specialty gases.",
+      },
+      {
+        title: "Agricultural Products",
+        image: menuImg5,
+        link: "/products/agriculture",
+        description: "Solutions for modern agriculture.",
+      },
     ],
   },
   {
     name: "Explore",
     path: "/explore",
     dropdown: [
-      { title: "Company Overview", image: menuImg6, link: "/explore/overview", description: "Know more about our company." },
-      { title: "Sustainability", image: menuImg7, link: "/explore/sustainability", description: "Our commitment to sustainability." },
-      { title: "Innovation", image: menuImg8, link: "/explore/innovation", description: "Driving innovation globally." },
-      { title: "Global Presence", image: menuImg9, link: "/explore/global", description: "Our presence worldwide." },
-      { title: "Careers", image: menuImg10, link: "/explore/careers", description: "Join our team today." },
+      {
+        title: "Company Overview",
+        image: menuImg6,
+        link: "/explore/overview",
+        description: "Know more about our company.",
+      },
+      {
+        title: "Sustainability",
+        image: menuImg7,
+        link: "/explore/sustainability",
+        description: "Our commitment to sustainability.",
+      },
+      {
+        title: "Innovation",
+        image: menuImg8,
+        link: "/explore/innovation",
+        description: "Driving innovation globally.",
+      },
+      {
+        title: "Global Presence",
+        image: menuImg9,
+        link: "/explore/global",
+        description: "Our presence worldwide.",
+      },
+      {
+        title: "Careers",
+        image: menuImg10,
+        link: "/explore/careers",
+        description: "Join our team today.",
+      },
     ],
   },
   {
     name: "Contact Us",
     path: "/contact-us",
     dropdown: [
-      { title: "Sales Inquiry", image: menuImg11, link: "/contact/sales", description: "Reach our sales team." },
-      { title: "Technical Support", image: menuImg12, link: "/contact/support", description: "24/7 technical support." },
-      { title: "Distributor Network", image: menuImg13, link: "/contact/distributor", description: "Our global distributors." },
-      { title: "Media Contact", image: menuImg14, link: "/contact/media", description: "Press & media inquiries." },
-      { title: "Location Map", image: menuImg15, link: "/contact/location", description: "Find our locations." },
+      {
+        title: "Sales Inquiry",
+        image: menuImg11,
+        link: "/contact/sales",
+        description: "Reach our sales team.",
+      },
+      {
+        title: "Technical Support",
+        image: menuImg12,
+        link: "/contact/support",
+        description: "24/7 technical support.",
+      },
+      {
+        title: "Distributor Network",
+        image: menuImg13,
+        link: "/contact/distributor",
+        description: "Our global distributors.",
+      },
+      {
+        title: "Media Contact",
+        image: menuImg14,
+        link: "/contact/media",
+        description: "Press & media inquiries.",
+      },
+      {
+        title: "Location Map",
+        image: menuImg15,
+        link: "/contact/location",
+        description: "Find our locations.",
+      },
     ],
   },
 ];
@@ -155,24 +227,24 @@ const images = {
   Lubricants: [LubeLeft, LubeLeft, LubeLeft],
 };
 
-const imagestwo = [sm1, sm2, sm3, sm4, sm5, sm6, ];
+const imagestwo = [sm1, sm2, sm3, sm4, sm5, sm6];
 
 // Register the plugin
 const CARD_WIDTH = 320;
 
 const Home = () => {
-const hoverTimeout = useRef(null);
-const [hoveredIndex, setHoveredIndex] = useState(null);
-const [activeIndex, setActiveIndex] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
 
-
+  // ==============================
+  const hoverTimeout = useRef(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  const activeItem = navItems.find(
-    (item) => item.name === activeDropdown
-  );
- const sliderRef = useRef(null);
+  const activeItem = navItems.find((item) => item.name === activeDropdown);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -194,11 +266,9 @@ const [activeIndex, setActiveIndex] = useState(0);
     });
   }, []);
 
-// =============================
+  // =============================
 
- const [activeTab, setActiveTab] = useState("Events");
-
-
+  const [activeTab, setActiveTab] = useState("Events");
 
   const cardsRef = useRef(null);
   const scrollAnim = useRef(null);
@@ -376,86 +446,90 @@ const [activeIndex, setActiveIndex] = useState(0);
   }, []);
 
   // =============================================
-const handleMouseMove = (e) => {
-  const btn = e.currentTarget;
-  const rect = btn.getBoundingClientRect();
+  const handleMouseMove = (e) => {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
 
-  const x = e.clientX - rect.left - rect.width / 2;
-  const y = e.clientY - rect.top - rect.height / 2;
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
 
-  requestAnimationFrame(() => {
-    btn.style.transform = `translate(${x * 0.04}px, ${y * 0.04}px) scale(1.05)`;
-  });
-};
+    requestAnimationFrame(() => {
+      btn.style.transform = `translate(${x * 0.04}px, ${
+        y * 0.04
+      }px) scale(1.05)`;
+    });
+  };
 
-const handleMouseLeave = (e) => {
-  e.currentTarget.style.transform = "translate(0px, 0px) scale(1)";
-};
+  const handleMouseLeave = (e) => {
+    e.currentTarget.style.transform = "translate(0px, 0px) scale(1)";
+  };
 
-
-  
   return (
     <section>
       {/* HERO SECTION */}
       <div className="relative min-h-[954px]">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat
+             sm:bg-top md:bg-center lg:bg-center
+             w-full h-[100svh] sm:h-[80svh] lg:h-[954px]
+             transition-all duration-500"
           style={{ backgroundImage: `url(${Banner})` }}
-        >
-          
-        </div>
+        ></div>
 
         {/* NAVBAR */}
-  
- <nav
-      className={`relative z-50 transition-colors duration-300 ${
-        activeDropdown ? "bg-white" : "bg-[#00000055]"
-      }`}
-    >
-      <div className="max-w-[1300px] mx-auto px-6 py-4 relative flex items-center justify-between">
-        {/* LOGO */}
-        <img src={Logo} alt="Logo" className="h-16 w-auto" />
 
-        {/* NAV ITEMS */}
-        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-7">
-          {navItems.map((item) => (
-<div className="relative group"
-  key={item.name}
-      onMouseEnter={() => setActiveDropdown(item.name)} // show immediately
-     
->
-  <button
-    className={`
+        <nav
+          className={`relative z-50 transition-colors duration-300 ${
+            activeDropdown || sidebarOpen
+              ? "bg-white shadow-md"
+              : "bg-black/30 bg-gradient-to-b from-black/40 to-transparent"
+          }`}
+        >
+          <div className="max-w-[1300px] mx-auto px-6 py-4 relative flex items-center justify-between">
+            {/* LOGO */}
+            <img src={Logo} alt="Logo" className="h-16 w-auto" />
+
+            {/* NAV ITEMS */}
+            <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-7">
+              {navItems.map((item) => (
+                <div
+                  className="relative group"
+                  key={item.name}
+                  onMouseEnter={() => setActiveDropdown(item.name)} // show immediately
+                >
+                  <button
+                    className={`
       flex items-center space-x-2
       px-3 py-2 rounded-md
       text-[15px] font-medium
       transition-all duration-300
       ${activeDropdown ? "text-black" : "text-white"}
     `}
-  >
-    <span>{item.name}</span>
-    <FaChevronDown
-      size={14}
-      className={`transition-transform duration-300 ${
-        activeDropdown === item.name ? "rotate-180 text-black" : "text-white"
-      }`}
-    />
-  </button>
-</div>
+                  >
+                    <span>{item.name}</span>
+                    <FaChevronDown
+                      size={14}
+                      className={`transition-transform duration-300 ${
+                        activeDropdown === item.name
+                          ? "rotate-180 text-black"
+                          : "text-white"
+                      }`}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
 
-
-          ))}
-        </div>
-
-        {/* SOCIAL ICONS */}
-        <div className="hidden md:flex items-center space-x-5">
-          {socialIcons.map(({ Icon, color, link }, idx) => (
-            <a
-              key={idx}
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`
+            {/* SOCIAL ICONS */}
+            <div>
+              <div className="hidden md:flex items-center space-x-5">
+                {socialIcons.map(({ Icon, color, link }, idx) => (
+                  <a
+                    key={idx}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`
                 group p-2 rounded-full transition-all duration-300
                 ${
                   activeDropdown
@@ -463,23 +537,32 @@ const handleMouseLeave = (e) => {
                     : "bg-white/10 hover:bg-white/20"
                 }
               `}
-            >
-              <Icon
-                size={20}
-                className={`
+                  >
+                    <Icon
+                      size={20}
+                      className={`
                   transition-colors duration-300
                   ${activeDropdown ? "text-black" : "text-white"}
                   ${color}
                 `}
-              />
-            </a>
-          ))}
-        </div>
+                    />
+                  </a>
+                ))}
+              </div>
 
-        {/* SINGLE FIXED CENTER DROPDOWN */}
-        {activeDropdown && activeItem && (
-          <div
-            className="
+              {/* MOBILE HAMBURGER */}
+              <button
+                className="lg:hidden text-white text-2xl p-2"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <FaBars />
+              </button>
+            </div>
+
+            {/* SINGLE FIXED CENTER DROPDOWN */}
+            {activeDropdown && activeItem && (
+              <div
+                className="
               absolute top-full left-1/2 -translate-x-1/2
               w-[145.80%] h-[500px]
               bg-white/95 backdrop-blur-lg
@@ -487,27 +570,28 @@ const handleMouseLeave = (e) => {
            
               z-50 flex overflow-hidden
             "
-            onMouseEnter={() => setActiveDropdown(activeDropdown)}
-            onMouseLeave={() => setActiveDropdown(null)}
-          >
- {/* LEFT MENU */}
-<div className="group w-[300px] bg-[#ededed] border-r border-gray-200">
-{activeItem.dropdown.map((sub, index) => (
-  <button
-    key={index}
-    onMouseEnter={() => setHoveredIndex(index)}
-    onMouseLeave={() => {
-      setHoveredIndex(null);
-      setActiveIndex(index); // last hovered remains active
-    }}
-    className={`
+                onMouseEnter={() => setActiveDropdown(activeDropdown)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                {/* LEFT MENU */}
+                <div className="group w-[300px] bg-[#ededed] border-r border-gray-200">
+                  {activeItem.dropdown.map((sub, index) => (
+                    <button
+                      key={index}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => {
+                        setHoveredIndex(null);
+                        setActiveIndex(index); // last hovered remains active
+                      }}
+                      className={`
       w-full text-left px-6 py-4 pl-10
       font-['Avenir',sans-serif]
       text-[15px] font-bold leading-[22.5px]
       text-[#080808]
 
       ${
-        hoveredIndex === index || (hoveredIndex === null && activeIndex === index)
+        hoveredIndex === index ||
+        (hoveredIndex === null && activeIndex === index)
           ? "bg-white"
           : ""
       }
@@ -515,59 +599,142 @@ const handleMouseLeave = (e) => {
       hover:text-[rgb(27,66,152)]
       transition-colors duration-200
     `}
-  >
-    {sub.title}
-  </button>
-))}
+                    >
+                      {sub.title}
+                    </button>
+                  ))}
+                </div>
 
-</div>
-
-{/* RIGHT IMAGE + TEXT + BUTTON */}
-<div className="flex-1 relative overflow-hidden">
-  {/* Only one image/text visible at a time */}
-  <img
-    src={
-      hoveredIndex !== null
-        ? activeItem.dropdown[hoveredIndex].image
-        : activeItem.dropdown[0].image
-    }
-    alt={
-      hoveredIndex !== null
-        ? activeItem.dropdown[hoveredIndex].title
-        : activeItem.dropdown[0].title
-    }
-    className="w-full h-full object-cover transition-all duration-500"
-  />
-  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
-    <div className="text-white max-w-lg">
-      <p className="text-sm mb-2 opacity-90">
-        {hoveredIndex !== null
-          ? activeItem.dropdown[hoveredIndex].description
-          : activeItem.dropdown[0].description}
-      </p>
-      <h2 className="text-3xl font-bold leading-snug mb-4">
-        {hoveredIndex !== null
-          ? activeItem.dropdown[hoveredIndex].title
-          : activeItem.dropdown[0].title}
-      </h2>
-      <Link
-        to={
-          hoveredIndex !== null
-            ? activeItem.dropdown[hoveredIndex].link
-            : activeItem.dropdown[0].link
-        }
-        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
-      >
-        Explore Products
-      </Link>
-    </div>
+                {/* RIGHT IMAGE + TEXT + BUTTON */}
+                <div className="flex-1 relative overflow-hidden">
+                  {/* Only one image/text visible at a time */}
+                  <img
+                    src={
+                      hoveredIndex !== null
+                        ? activeItem.dropdown[hoveredIndex].image
+                        : activeItem.dropdown[0].image
+                    }
+                    alt={
+                      hoveredIndex !== null
+                        ? activeItem.dropdown[hoveredIndex].title
+                        : activeItem.dropdown[0].title
+                    }
+                    className="w-full h-full object-cover transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
+                    <div className="text-white max-w-lg">
+                      <p className="text-sm mb-2 opacity-90">
+                        {hoveredIndex !== null
+                          ? activeItem.dropdown[hoveredIndex].description
+                          : activeItem.dropdown[0].description}
+                      </p>
+                      <h2 className="text-3xl font-bold leading-snug mb-4">
+                        {hoveredIndex !== null
+                          ? activeItem.dropdown[hoveredIndex].title
+                          : activeItem.dropdown[0].title}
+                      </h2>
+                      <Link
+                        to={
+                          hoveredIndex !== null
+                            ? activeItem.dropdown[hoveredIndex].link
+                            : activeItem.dropdown[0].link
+                        }
+                        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
+                      >
+                        Explore Products
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* MOBILE SIDEBAR */}
+          {/* MOBILE SIDEBAR */}
+<div className={`fixed top-0 left-0 w-80 h-full shadow-2xl bg-white z-50 transform transition-transform duration-300 ${
+  sidebarOpen ? "translate-x-0" : "-translate-x-full"
+}`}>
+  {/* Sidebar Header */}
+  <div className="flex items-center justify-between p-4 border-b border-gray-300">
+    <img src={Logo} alt="Logo" className="h-12 w-auto" />
+    <button
+      onClick={() => setSidebarOpen(false)}
+      className="text-gray-800 text-2xl p-1 transition-transform duration-500 hover:text-gray-600 hover:rotate-[190deg]"
+    >
+      <FaTimes />
+    </button>
   </div>
+
+  {/* Sidebar Menu */}
+  <div className="flex flex-col mt-4">
+  {navItems.map((item, idx) => (
+    <div
+      key={idx}
+      className={`flex flex-col ${
+        sidebarOpen ? `animate-rise-in` : `animate-rise-out`
+      }`}
+      style={{
+        animationDelay: `${idx * 200}ms`, // stagger appearance
+        fontSize: `${16 + idx * 2}px`, // gradually increasing font size
+      }}
+    >
+      <button
+        onClick={() =>
+          openSubmenuIndex === idx
+            ? setOpenSubmenuIndex(null)
+            : setOpenSubmenuIndex(idx)
+        }
+        className="flex items-center justify-between px-6 py-4 font-semibold text-gray-800 hover:bg-gray-100 rounded-md transition"
+      >
+        {item.name}
+        {item.dropdown && item.dropdown.length > 0 && (
+          <FaChevronRight
+            className={`transition-transform duration-300 text-gray-800 ${
+              openSubmenuIndex === idx ? "rotate-90" : ""
+            }`}
+          />
+        )}
+      </button>
+
+      {/* Nested Submenu */}
+    {item.dropdown && item.dropdown.length > 0 && (
+  <div
+    className={`overflow-hidden transition-max-height duration-300 ${
+      openSubmenuIndex === idx ? "max-h-[500px]" : "max-h-0"
+    }`}
+  >
+    {item.dropdown.map((sub, subIdx) => (
+      <Link
+        key={subIdx}
+        to={sub.link || "#"}
+        className="block pl-12 pr-6 py-3 text-gray-800 text-base hover:bg-gray-100 rounded-md transition"
+        onClick={() => setSidebarOpen(false)}
+      >
+        {sub.title}
+      </Link>
+    ))}
+  </div>
+)}
+
+    </div>
+  ))}
 </div>
+
+</div>
+
+
+
+
+{/* Mobile overlay */}
+{sidebarOpen && (
+  <div
+    className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+    onClick={() => setSidebarOpen(false)}
+  />
+)}
+
 
           </div>
-        )}
-      </div>
-    </nav>
+        </nav>
 
         {/* HERO CONTENT CENTER */}
         <div className="relative z-40 flex items-end justify-center mt-[600px] text-center">
@@ -1036,336 +1203,313 @@ const handleMouseLeave = (e) => {
           </div>
         </div>
       </section>
- 
-    <section className="relative  bg-[#1b1e1f] text-white py-20">
-      <div className="max-w-[1800px] mx-auto px-6">
 
-        {/* TITLE */}
-        <h1 className="text-center text-4xl md:text-5xl font-bold">
-          WHAT&apos;S HAPPENING AT ZEETEX
-        </h1>
-        <p className="text-center text-gray-400 mt-4">
-          Stay up to speed with everything new, bold, and rolling at Zeetex.
-        </p>
+      <section className="relative  bg-[#1b1e1f] text-white py-20">
+        <div className="max-w-[1800px] mx-auto px-6">
+          {/* TITLE */}
+          <h1 className="text-center text-4xl md:text-5xl font-bold">
+            WHAT&apos;S HAPPENING AT ZEETEX
+          </h1>
+          <p className="text-center text-gray-400 mt-4">
+            Stay up to speed with everything new, bold, and rolling at Zeetex.
+          </p>
 
-        {/* TABS */}
-<div className="flex justify-center mt-16 gap-4 z-10 relative">
-  {["Events", "Testimonials", "Blogs"].map((tab) => (
-    <button
-      key={tab}
-      onMouseEnter={() => setActiveTab(tab)}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`px-12 py-3 rounded-full text-sm font-medium
+          {/* TABS */}
+          <div className="flex justify-center mt-16 gap-4 z-10 relative">
+            {["Events", "Testimonials", "Blogs"].map((tab) => (
+              <button
+                key={tab}
+                onMouseEnter={() => setActiveTab(tab)}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                className={`px-12 py-3 rounded-full text-sm font-medium
         cursor-pointer transition-transform duration-300 will-change-transform hover:text-blue-800
         ${
           activeTab === tab
             ? "bg-white text-black shadow-lg"
             : "bg-white/10 text-white hover:bg-white/20"
         }`}
-    >
-      {tab}
-    </button>
-  ))}
-</div>
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
+          {/* CONTENT AREA */}
+          <div className="mt-16 max-h-[1000px]">
+            {/* EVENTS */}
 
+            {activeTab === "Events" && (
+              <div className="grid grid-cols-12 gap-5">
+                {/* LEFT BIG FEATURE CARD */}
+                <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
+                  <img
+                    src={eventsMain}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-        {/* CONTENT AREA */}
-        <div className="mt-16 max-h-[1000px]">
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-          {/* EVENTS */}
+                  {/* Content */}
+                  <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
+                    <h3 className="text-2xl font-semibold leading-tight">
+                      Events & Highlights
+                    </h3>
+                    <p className="mt-2 text-sm text-gray-200">
+                      Latest moments, launches & global presence
+                    </p>
 
-{activeTab === "Events" && (
-  <div className="grid grid-cols-12 gap-5">
+                    <button className="mt-4 inline-flex items-center gap-2 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
+                      Explore
+                    </button>
+                  </div>
+                </div>
 
-    {/* LEFT BIG FEATURE CARD */}
-    <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
-      <img
-        src={eventsMain}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+                {/* RIGHT SIDE GRID */}
+                <div className="  col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
+                  {/* Card 1 */}
+                  <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
+                    <img
+                      src={auto}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
+                      Zeetex UAE
+                    </h4>
+                  </div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  {/* Card 2 */}
+                  <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[600px]">
+                    <img
+                      src={launch}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
+                      Zeetex Qatar
+                    </h4>
+                  </div>
 
-      {/* Content */}
-      <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
-        <h3 className="text-2xl font-semibold leading-tight">
-          Events & Highlights
-        </h3>
-        <p className="mt-2 text-sm text-gray-200">
-          Latest moments, launches & global presence
-        </p>
+                  {/* Card 3 – Feature Vertical */}
+                  <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[300px]">
+                    <img
+                      src={drift}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
+                      Zeetex Iraq
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            )}
 
-        <button className="mt-4 inline-flex items-center gap-2 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
-          Explore
-        </button>
-      </div>
-    </div>
+            {/* TESTIMONIALS */}
+            {activeTab === "Testimonials" && (
+              <div className="grid grid-cols-12 gap-5">
+                {/* LEFT BIG FEATURE CARD */}
+                <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
+                  <img
+                    src={eventsMain}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-    {/* RIGHT SIDE GRID */}
-    <div className="  col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
+                  <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
+                    <h3 className="text-2xl font-semibold leading-tight">
+                      Testimonials
+                    </h3>
+                    <p className="mt-2 text-sm text-gray-200">
+                      What our global partners say about us
+                    </p>
+                    <button className="mt-4 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
+                      Explore
+                    </button>
+                  </div>
+                </div>
 
-      {/* Card 1 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
-        <img
-          src={auto}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-          Zeetex UAE
-        </h4>
-      </div>
+                {/* RIGHT SIDE GRID */}
+                <div className="col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
+                  {/* Card 1 */}
+                  <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
+                    <img
+                      src={auto}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
+                      Zeetex UAE
+                    </h4>
+                  </div>
 
-      {/* Card 2 */}
-      <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[600px]">
-        <img
-          src={launch}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-          Zeetex Qatar
-        </h4>
-      </div>
+                  {/* Card 2 */}
+                  <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
+                    <img
+                      src={launch}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
+                      Zeetex Qatar
+                    </h4>
+                  </div>
 
-      {/* Card 3 – Feature Vertical */}
-      <div className="col-span-3 row-span-3 relative rounded-2xl overflow-hidden group h-[300px]">
-        <img
-          src={drift}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
-          Zeetex Iraq
-        </h4>
-      </div>
+                  {/* Card 3 – Vertical Feature */}
+                  <div className="col-span-3 row-span-2 relative rounded-2xl overflow-hidden group h-[300px] w-[870px]">
+                    <img
+                      src={drift}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
+                      Zeetex Iraq
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            )}
 
-    </div>
-
-  </div>
-)}
-
-
-
-          {/* TESTIMONIALS */}
-{activeTab === "Testimonials" && (
-  <div className="grid grid-cols-12 gap-5">
-
-    {/* LEFT BIG FEATURE CARD */}
-    <div className="col-span-12 lg:col-span-6 relative rounded-3xl overflow-hidden group h-[600px]">
-      <img
-        src={eventsMain}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-      <div className="absolute bottom-6 left-6 z-10 text-white max-w-xs">
-        <h3 className="text-2xl font-semibold leading-tight">
-          Testimonials
-        </h3>
-        <p className="mt-2 text-sm text-gray-200">
-          What our global partners say about us
-        </p>
-        <button className="mt-4 px-6 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 transition rounded-full">
-          Explore
-        </button>
-      </div>
-    </div>
-
-    {/* RIGHT SIDE GRID */}
-    <div className="col-span-12 lg:col-span-6 grid grid-cols-6 grid-rows-2 gap-4">
-
-      {/* Card 1 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
-        <img
-          src={auto}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-          Zeetex UAE
-        </h4>
-      </div>
-
-      {/* Card 2 */}
-      <div className="col-span-3 row-span-1 relative rounded-2xl overflow-hidden group h-[280px]">
-        <img
-          src={launch}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white">
-          Zeetex Qatar
-        </h4>
-      </div>
-
-      {/* Card 3 – Vertical Feature */}
-      <div className="col-span-3 row-span-2 relative rounded-2xl overflow-hidden group h-[300px] w-[870px]">
-        <img
-          src={drift}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <h4 className="absolute bottom-5 left-5 text-base font-semibold text-white">
-          Zeetex Iraq
-        </h4>
-      </div>
-
-    </div>
-
-  </div>
-)}
-
-
-
-
-          {/* BLOGS  */}
-       {activeTab === "Blogs" && (
-  <div className="grid grid-cols-12 gap-6">
-
-    {/* LEFT BIG CARD */}
-    <div className="col-span-12 md:col-span-6 relative rounded-3xl overflow-hidden group
+            {/* BLOGS  */}
+            {activeTab === "Blogs" && (
+              <div className="grid grid-cols-12 gap-6">
+                {/* LEFT BIG CARD */}
+                <div
+                  className="col-span-12 md:col-span-6 relative rounded-3xl overflow-hidden group
                     cursor-pointer min-h-[380px] md:min-h-[420px] lg:min-h-[600px]
-                    transition-transform duration-300 hover:scale-[1.02] active:scale-[0.97]">
-      <img
-        src={eventsMain}
-        alt="Events"
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+                    transition-transform duration-300 hover:scale-[1.02] active:scale-[0.97]"
+                >
+                  <img
+                    src={eventsMain}
+                    alt="Events"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-      <div className="absolute bottom-6 left-6 max-w-sm z-10">
-        <h3 className="text-2xl font-semibold text-white">Events</h3>
-        <p className="mt-2 text-gray-200">See where Zeetex rolls next</p>
+                  <div className="absolute bottom-6 left-6 max-w-sm z-10">
+                    <h3 className="text-2xl font-semibold text-white">
+                      Events
+                    </h3>
+                    <p className="mt-2 text-gray-200">
+                      See where Zeetex rolls next
+                    </p>
 
-        <button
-          className="mt-4 px-6 py-2 rounded-full text-sm font-medium
+                    <button
+                      className="mt-4 px-6 py-2 rounded-full text-sm font-medium
                      bg-blue-600 text-white
                      transition-all duration-300
                      hover:bg-blue-700 hover:scale-105
                      active:scale-95"
-        >
-          Explore
-        </button>
-      </div>
-    </div>
+                    >
+                      Explore
+                    </button>
+                  </div>
+                </div>
 
-    {/* RIGHT SIDE - FLEX */}
-<div className="col-span-12 md:col-span-6 flex flex-wrap gap-4">
-
-  {/* CARD 2 — FULL / WIDE (TOP) */}
-  <div
-    className="relative rounded-3xl overflow-hidden group cursor-pointer
+                {/* RIGHT SIDE - FLEX */}
+                <div className="col-span-12 md:col-span-6 flex flex-wrap gap-4">
+                  {/* CARD 2 — FULL / WIDE (TOP) */}
+                  <div
+                    className="relative rounded-3xl overflow-hidden group cursor-pointer
                order-1 w-full
                h-[220px] md:h-[300px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
-  >
-    <img
-      src={launch}
-      alt="5000 Max Series Launch Lebanon"
-      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
-      5000 Max Series Launch Lebanon
-    </h4>
-  </div>
+                  >
+                    <img
+                      src={launch}
+                      alt="5000 Max Series Launch Lebanon"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
+                      5000 Max Series Launch Lebanon
+                    </h4>
+                  </div>
 
-  {/* CARD 1 — LEFT BOTTOM */}
-  <div
-    className="relative rounded-3xl overflow-hidden group cursor-pointer
+                  {/* CARD 1 — LEFT BOTTOM */}
+                  <div
+                    className="relative rounded-3xl overflow-hidden group cursor-pointer
                order-2 w-[48%] md:w-[48%]
                h-[200px] md:h-[280px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
-  >
-    <img
-      src={auto}
-      alt="Automechanica 2024"
-      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
-      Automechanica 2024
-    </h4>
-  </div>
+                  >
+                    <img
+                      src={auto}
+                      alt="Automechanica 2024"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
+                      Automechanica 2024
+                    </h4>
+                  </div>
 
-  {/* CARD 3 — RIGHT BOTTOM */}
-  <div
-    className="relative rounded-3xl overflow-hidden group cursor-pointer
+                  {/* CARD 3 — RIGHT BOTTOM */}
+                  <div
+                    className="relative rounded-3xl overflow-hidden group cursor-pointer
                order-3 w-[48%] md:w-[50%]
                h-[200px] md:h-[280px]
                transition-transform duration-300 hover:scale-[1.03] active:scale-[0.96]"
-  >
-    <img
-      src={drift}
-      alt="Zeetex Drift Championship"
-      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
-      Zeetex Drift Championship
-    </h4>
-  </div>
-
-</div>
-
-
-
-  </div>
-)}
-
-        </div>
-      </div>
-    </section>
-{/* ================================== */}
-
- <section className="relative py-30 w-full bg-gradient-to-b from-black to-gray-900 py- overflow-hidden">
-
-      {/* Heading */}
-      <div className="text-center mb-16 px-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-white uppercase">
-          Join the Ride on Social
-        </h2>
-        <p className="text-gray-300 mt-4 max-w-xl mx-auto">
-          What drives us is what connects us. Stay tuned with Zeetex.
-        </p>
-      </div>
-
-      {/* Slider */}
-      <div
-        ref={sliderRef}
-        className="flex gap-8 px-10 overflow-hidden"
-      >
-        {[...imagestwo, ...imagestwo].map((img, index) => (
-          <div
-            key={index}
-            className="min-w-[280px] bg-white rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
-          >
-            <img
-              src={img}
-              alt="Zeetex Social"
-              className="w-full h-[320px] object-cover"
-            />
-
-            <div className="p-4 flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-gray-900">
-                  Zeetex MEA
-                </p>
-                <p className="text-xs text-gray-500">@zeetexmea</p>
+                  >
+                    <img
+                      src={drift}
+                      alt="Zeetex Drift Championship"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <h4 className="absolute bottom-4 left-4 text-sm font-semibold text-white z-10">
+                      Zeetex Drift Championship
+                    </h4>
+                  </div>
+                </div>
               </div>
-
-              <span className="text-pink-600 text-xl">📷</span>
-            </div>
+            )}
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
+      {/* ================================== */}
 
+      <section className="relative py-30 w-full bg-gradient-to-b from-black to-gray-900 py- overflow-hidden">
+        {/* Heading */}
+        <div className="text-center mb-16 px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white uppercase">
+            Join the Ride on Social
+          </h2>
+          <p className="text-gray-300 mt-4 max-w-xl mx-auto">
+            What drives us is what connects us. Stay tuned with Zeetex.
+          </p>
+        </div>
+
+        {/* Slider */}
+        <div ref={sliderRef} className="flex gap-8 px-10 overflow-hidden">
+          {[...imagestwo, ...imagestwo].map((img, index) => (
+            <div
+              key={index}
+              className="min-w-[280px] bg-white rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+            >
+              <img
+                src={img}
+                alt="Zeetex Social"
+                className="w-full h-[320px] object-cover"
+              />
+
+              <div className="p-4 flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    Zeetex MEA
+                  </p>
+                  <p className="text-xs text-gray-500">@zeetexmea</p>
+                </div>
+
+                <span className="text-pink-600 text-xl">📷</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </section>
   );
 };
