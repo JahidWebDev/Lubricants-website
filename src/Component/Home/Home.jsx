@@ -114,17 +114,20 @@ const navItems = [
     name: "Our Products",
     path: "/OurProducts",
     dropdown: [
-      {
-        title: "Industrial Chemicals",
-        image: menuImg1,
-        link: "/products/chemicals",
-        description: "High quality industrial chemicals.",
-      },
+     {
+  title: "Passenger Tyres",
+  image: menuImg1,
+  link: "/products/petroleum",
+  description: "Reliable petroleum solutions.",
+  buttonText: "Explore Passenger Tyres"
+},
+
       {
         title: "Petroleum Products",
         image: menuImg2,
-        link: "/products/petroleum",
+        link: "",
         description: "Reliable petroleum solutions.",
+        buttonText: "View Petroleum"
       },
       {
         title: "Lubricants",
@@ -579,10 +582,7 @@ const Home = () => {
                     <button
                       key={index}
                       onMouseEnter={() => setHoveredIndex(index)}
-                      onMouseLeave={() => {
-                        setHoveredIndex(null);
-                        setActiveIndex(index); // last hovered remains active
-                      }}
+                     
                       className={`
       w-full text-left px-6 py-4 pl-10
       font-['Avenir',sans-serif]
@@ -606,46 +606,56 @@ const Home = () => {
                 </div>
 
                 {/* RIGHT IMAGE + TEXT + BUTTON */}
-                <div className="flex-1 relative overflow-hidden">
-                  {/* Only one image/text visible at a time */}
-                  <img
-                    src={
-                      hoveredIndex !== null
-                        ? activeItem.dropdown[hoveredIndex].image
-                        : activeItem.dropdown[0].image
-                    }
-                    alt={
-                      hoveredIndex !== null
-                        ? activeItem.dropdown[hoveredIndex].title
-                        : activeItem.dropdown[0].title
-                    }
-                    className="w-full h-full object-cover transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
-                    <div className="text-white max-w-lg">
-                      <p className="text-sm mb-2 opacity-90">
-                        {hoveredIndex !== null
-                          ? activeItem.dropdown[hoveredIndex].description
-                          : activeItem.dropdown[0].description}
-                      </p>
-                      <h2 className="text-3xl font-bold leading-snug mb-4">
-                        {hoveredIndex !== null
-                          ? activeItem.dropdown[hoveredIndex].title
-                          : activeItem.dropdown[0].title}
-                      </h2>
-                      <Link
-                        to={
-                          hoveredIndex !== null
-                            ? activeItem.dropdown[hoveredIndex].link
-                            : activeItem.dropdown[0].link
-                        }
-                        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
-                      >
-                        Explore Products
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+             <div className="flex-1 relative overflow-hidden">
+  {/* Image changes based on hoveredIndex */}
+  <img
+    src={
+      hoveredIndex !== null
+        ? activeItem.dropdown[hoveredIndex].image
+        : activeItem.dropdown[0].image
+    }
+    alt={
+      hoveredIndex !== null
+        ? activeItem.dropdown[hoveredIndex].title
+        : activeItem.dropdown[0].title
+    }
+    className="w-full h-full object-cover transition-all duration-500"
+  />
+
+  {/* Overlay with text & button */}
+  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
+    <div className="text-white max-w-lg">
+      {/* Description */}
+      <p className="text-sm mb-2 opacity-90">
+        {hoveredIndex !== null
+          ? activeItem.dropdown[hoveredIndex].description
+          : activeItem.dropdown[0].description}
+      </p>
+
+      {/* Title */}
+      <h2 className="text-3xl  font-bold leading-snug mb-7">
+        {hoveredIndex !== null
+          ? activeItem.dropdown[hoveredIndex].title
+          : activeItem.dropdown[0].title}
+      </h2>
+
+      {/* Button per item */}
+      <Link
+        to={
+          hoveredIndex !== null
+            ? activeItem.dropdown[hoveredIndex].link
+            : activeItem.dropdown[0].link
+        }
+        className="px-10 py-4  bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
+      >
+        {hoveredIndex !== null
+          ? activeItem.dropdown[hoveredIndex].buttonText || "Explore Products"
+          : activeItem.dropdown[0].buttonText || "Explore Products"}
+      </Link>
+    </div>
+  </div>
+</div>
+
               </div>
             )}
             {/* MOBILE SIDEBAR */}
@@ -737,16 +747,18 @@ const Home = () => {
         </nav>
 
         {/* HERO CONTENT CENTER */}
-        <div className="relative z-40 flex items-end justify-center mt-[600px] text-center">
-          <div>
-            <h2 className="text-white text-sm md:text-base font-semibold drop-shadow-lg">
-              Built to Ride. Ready to Roll.
-            </h2>
-            <button className="mt-6 px-8 py-3 bg-white text-black rounded-full text-sm font-medium shadow-lg hover:bg-[#0094de] hover:text-white transition">
-              Explore
-            </button>
-          </div>
-        </div>
+    <div className="relative z-40 flex items-end justify-center text-center 
+                mt-[300px] sm:mt-[400px] md:mt-[500px] lg:mt-[600px] px-4">
+  <div>
+    <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold drop-shadow-lg">
+      Built to Ride. Ready to Roll.
+    </h2>
+    <button className="mt-4 sm:mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-white text-black rounded-full text-sm sm:text-base font-medium shadow-lg hover:bg-[#0094de] hover:text-white transition">
+      Explore
+    </button>
+  </div>
+</div>
+
       </div>
 
       {/* PRODUCT SECTION */}
