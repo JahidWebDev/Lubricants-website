@@ -538,7 +538,7 @@ const OurProducts = () => {
       </div>
 
       {/* ========================== */}
-     <section className="bg-white py-50 pt-100">
+     <section className="bg-white py-16 pt-100">
   <div className="max-w-7xl mx-auto px-6">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
@@ -613,35 +613,59 @@ const OurProducts = () => {
   <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
     {products.map((product) => (
       <a
-        key={product.id}s
+        key={product.id}
         href={`/product/${product.title.replace(/\s+/g, "-").toLowerCase()}`}
-        className="group block rounded-2xl border border-gray-200 bg-white
-        transition-all duration-300 hover:border-blue-700"
+        className="
+          group block rounded-3xl
+          bg-white border border-gray-200
+          transition-all duration-300 ease-out
+          hover:-translate-y-1 hover:shadow-2xl
+          hover:bg-[#193CB8]
+        "
       >
         {/* Image box */}
-        <div className="bg-gray-50 rounded-t-2xl flex items-center justify-center h-60 overflow-hidden">
+        <div
+          className="
+            bg-gray-100
+            rounded-2xl group-hover:rounded-3xl
+            m-4 mx-auto
+            flex items-center justify-center
+            h-65 w-[94%]
+            overflow-hidden
+            transition-all duration-300 ease-out
+            group-hover:bg-white
+          "
+        >
           <img
             src={product.image}
             alt={product.title}
-            className="w-80 object-contain rounded-xl transition-transform duration-300 group-hover:scale-105"
+            className="
+              w-72 object-contain
+              transition-transform duration-300 ease-out
+              group-hover:scale-105
+            "
           />
         </div>
 
-        {/* Content box */}
-        <div
-          className="p-5 rounded-b-2xl transition-all duration-300
-          group-hover:bg-blue-700"
-        >
+        {/* Content */}
+        <div className="px-5 pb-6 transition-all duration-300 ease-out">
           <h4
-            className="text-2xl font-extrabold mb-2 text-blue-700
-            group-hover:text-white"
+            className="
+              text-2xl font-extrabold mb-2 text-blue-700
+              transition-colors duration-300
+              group-hover:text-white
+            "
           >
             {product.title}
           </h4>
 
           <p
-            className="text-base leading-relaxed mb-4 text-gray-600
-            group-hover:text-blue-100"
+            className="
+              text-base leading-relaxed mb-4
+              text-gray-900
+              transition-colors duration-300 ease-out
+              group-hover:text-white
+            "
           >
             {product.desc}
           </p>
@@ -650,9 +674,13 @@ const OurProducts = () => {
             {product.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="text-sm px-4 py-1 rounded-full border border-gray-300
-                text-gray-700 transition-all duration-300
-                group-hover:border-blue-200 group-hover:text-white"
+                className="
+                  text-sm px-4 py-1 rounded-full
+                  border border-gray-300 text-gray-900
+                  transition-all duration-300
+                  group-hover:border-white
+                  group-hover:text-white
+                "
               >
                 {tag}
               </span>
@@ -663,6 +691,8 @@ const OurProducts = () => {
     ))}
   </div>
 </section>
+
+
 
 
 
