@@ -620,7 +620,7 @@ const OurProducts = () => {
           bg-white border border-gray-200
           transition-all duration-300 ease-out
           hover:-translate-y-1 hover:shadow-2xl
-          hover:bg-[#193CB8]
+          hover:bg-[#001870]
         "
       >
         {/* Image box */}
