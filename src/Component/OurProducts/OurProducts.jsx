@@ -727,15 +727,20 @@ const OurProducts = () => {
             group-hover:bg-white
           "
         >
-          <img
-            src={product.image}
-            alt={product.title}
-            className="
-              w-40 object-contain
-              transition-transform duration-300 ease-out
-              group-hover:scale-105
-            "
-          />
+<img
+  src={product.image}
+  alt={product.title}
+  loading="lazy"
+  className="
+    w-40 object-contain
+    transition-all duration-300 ease-out
+    opacity-0
+    group-hover:scale-105
+  "
+  onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
+/>
+
+
         </div>
 
         {/* Content */}
