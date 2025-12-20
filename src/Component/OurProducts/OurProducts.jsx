@@ -12,46 +12,22 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
-import img1 from "../../Images/menupcr.jpg";
-import img2 from "../../Images/menupcr.jpg"; // replace with actual hover images
-import img3 from "../../Images/menupcr.jpg";
-import img4 from "../../Images/menupcr.jpg";
+import img1 from "../../Images/Product/JAGUAR-4T-Motor-Engine-Oil-SM.png";
+import img2 from "../../Images/Product/JAGUAR-4T-Motor-Engine-Oil-SN.png";
+import img3 from "../../Images/Product/JAGUAR-High-Performance-Gasoline-CNG-Engine-Oil-01.png";
+import img4 from "../../Images/Product/JAGUAR-Multi-Grade-Engine-Oil.png";
+import img5 from "../../Images/Product/JAGUAR-Multi-Grade-Engine-Oil-CH-4.png";
+import img6 from "../../Images/Product/JAGUAR-Diesel-Heavy-Duty-Engine-Oil.png";
+import img7 from "../../Images/Product/JAGUAR-Diesel-HD-50-Engine-Oil.png";
+import img8 from "../../Images/Product/JAGUAR-Diesel-Extra-Mileage-Engine-Oil.png";
+import img9 from "../../Images/Product/JAGUAR-Diesel-Extream-Power-Engine-Oil.png";
+import img10 from "../../Images/Product/JAGUAR-Hydralic-Oil-HV-Engine-Oil.png";
+import img11 from "../../Images/Product/JAGUAR-Hydralic-Oil-AW-Engine-Oil.png";
+import img12 from "../../Images/Product/JAGUAR-Gear-Oil-GL-4.png";
+import img13 from "../../Images/Product/Jaguar-Industrial-&-Marine-Oil.png";
 
-const products = [
-  {
-    id: 1,
-    title: "ZT5000 MAX",
-    desc: "Engineered for safety, grip, and everyday reliability.",
-    image: img1,
-    hoverImage: "", // fallback to default image
-    tags: ["Passenger", "Performance"],
-    active: true,
-  },
-  {
-    id: 2,
-    title: "HP5000 MAX",
-    desc: "Engineered for grip, comfort, and confidence.",
-    image: img2,
-    hoverImage: img2,
-    tags: ["Comfort", "High Performance"],
-  },
-  {
-    id: 3,
-    title: "SU5000 MAX",
-    desc: "Engineered for SUV power and everyday comfort.",
-    image: img3,
-    hoverImage: img3,
-    tags: ["Fuel-Efficient", "SUV"],
-  },
-  {
-    id: 4,
-    title: "HT5000 MAX",
-    desc: "Engineered for smooth comfort and lasting performance.",
-    image: img4,
-    hoverImage: img4,
-    tags: ["Highway Terrain", "Stability"],
-  },
-];
+
+
 const socialIcons = [
   {
     Icon: FaFacebook,
@@ -215,6 +191,121 @@ const navItems = [
     ],
   },
 ];
+
+
+const products = [
+  {
+    id: 1,
+    title: "ZT5000 MAX",
+    desc: "Engineered for safety, grip, and everyday reliability.",
+    image: img1,
+    hoverImage: img1,
+    tags: ["Passenger", "Performance"],
+    active: true,
+  },
+  {
+    id: 2,
+    title: "HP5000 MAX",
+    desc: "Engineered for grip, comfort, and confidence.",
+    image: img2,
+    hoverImage: img2,
+    tags: ["Comfort", "High Performance"],
+  },
+  {
+    id: 3,
+    title: "SU5000 MAX",
+    desc: "Engineered for SUV power and everyday comfort.",
+    image: img3,
+    hoverImage: img3,
+    tags: ["Fuel-Efficient", "SUV"],
+  },
+  {
+    id: 4,
+    title: "HT5000 MAX",
+    desc: "Engineered for smooth comfort and lasting performance.",
+    image: img4,
+    hoverImage: img4,
+    tags: ["Highway Terrain", "Stability"],
+  },
+  {
+    id: 5,
+    title: "Multi Grade Engine Oil CH-4",
+    desc: "Reliable protection for high-performance diesel engines.",
+    image: img5,
+    hoverImage: img5,
+    tags: ["Diesel", "Multi-Grade"],
+  },
+  {
+    id: 6,
+    title: "Diesel Heavy Duty Engine Oil",
+    desc: "Built for extreme load and heavy-duty performance.",
+    image: img6,
+    hoverImage: img6,
+    tags: ["Diesel", "Heavy Duty"],
+  },
+  {
+    id: 7,
+    title: "Diesel HD 50 Engine Oil",
+    desc: "Consistent lubrication for high-temperature diesel engines.",
+    image: img7,
+    hoverImage: img7,
+    tags: ["Diesel", "HD 50"],
+  },
+  {
+    id: 8,
+    title: "Diesel Extra Mileage Engine Oil",
+    desc: "Enhanced engine life with extra mileage performance.",
+    image: img8,
+    hoverImage: img8,
+    tags: ["Diesel", "Extra Mileage"],
+  },
+  {
+    id: 9,
+    title: "Diesel Extreme Power Engine Oil",
+    desc: "Maximum power and protection for demanding engines.",
+    image: img9,
+    hoverImage: img9,
+    tags: ["Diesel", "Extreme Power"],
+  },
+  {
+    id: 10,
+    title: "Hydraulic Oil HV",
+    desc: "High viscosity index hydraulic oil for smooth operation.",
+    image: img10,
+    hoverImage: img10,
+    tags: ["Hydraulic", "HV"],
+  },
+  {
+    id: 11,
+    title: "Hydraulic Oil AW",
+    desc: "Anti-wear hydraulic oil for long-lasting performance.",
+    image: img11,
+    hoverImage: img11,
+    tags: ["Hydraulic", "AW"],
+  },
+  {
+    id: 12,
+    title: "Gear Oil GL-4",
+    desc: "Superior gear protection and smooth transmission.",
+    image: img12,
+    hoverImage: img12,
+    tags: ["Gear Oil", "GL-4"],
+  },
+  {
+    id: 13,
+    title: "Industrial & Marine Oil",
+    desc: "Engineered for heavy industrial and marine applications.",
+    image: img13,
+    hoverImage: img13,
+    tags: ["Industrial", "Marine"],
+  },
+];
+
+
+
+
+
+
 
 const OurProducts = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -630,7 +721,7 @@ const OurProducts = () => {
             rounded-2xl group-hover:rounded-3xl
             m-4 mx-auto
             flex items-center justify-center
-            h-65 w-[94%]
+            h-70 w-[94%]
             overflow-hidden
             transition-all duration-300 ease-out
             group-hover:bg-white
@@ -640,7 +731,7 @@ const OurProducts = () => {
             src={product.image}
             alt={product.title}
             className="
-              w-72 object-contain
+              w-40 object-contain
               transition-transform duration-300 ease-out
               group-hover:scale-105
             "
