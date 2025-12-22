@@ -29,31 +29,11 @@ import img13 from "../../Images/Product/Jaguar-Industrial-&-Marine-Oil.png";
 
 
 const socialIcons = [
-  {
-    Icon: FaFacebook,
-    color: "group-hover:text-[#1877F2]",
-    link: "https://www.facebook.com",
-  },
-  {
-    Icon: FaTwitter,
-    color: "group-hover:text-[#1DA1F2]",
-    link: "https://www.twitter.com",
-  },
-  {
-    Icon: FaInstagram,
-    color: "group-hover:text-pink-500",
-    link: "https://www.instagram.com",
-  },
-  {
-    Icon: FaYoutube,
-    color: "group-hover:text-[#FF0000]",
-    link: "https://www.youtube.com",
-  },
-  {
-    Icon: FaLinkedin,
-    color: "group-hover:text-[#0A66C2]",
-    link: "https://www.linkedin.com",
-  },
+  { Icon: FaFacebook, color: "text-blue-600", link: "#" },
+  { Icon: FaTwitter, color: "text-blue-400", link: "#" },
+  { Icon: FaInstagram, color: "text-pink-500", link: "#" },
+  { Icon: FaYoutube, color: "text-red-600", link: "#" },
+  { Icon: FaLinkedin, color: "text-blue-700", link: "#" },
 ];
 
 // IMAGES

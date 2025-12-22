@@ -15,38 +15,17 @@ import {
 import { Link } from "react-router-dom";
 
 const socialIcons = [
-  {
-    Icon: FaFacebook,
-    color: "group-hover:text-[#1877F2]",
-    link: "https://www.facebook.com",
-  },
-  {
-    Icon: FaTwitter,
-    color: "group-hover:text-[#1DA1F2]",
-    link: "https://www.twitter.com",
-  },
-  {
-    Icon: FaInstagram,
-    color: "group-hover:text-pink-500",
-    link: "https://www.instagram.com",
-  },
-  {
-    Icon: FaYoutube,
-    color: "group-hover:text-[#FF0000]",
-    link: "https://www.youtube.com",
-  },
-  {
-    Icon: FaLinkedin,
-    color: "group-hover:text-[#0A66C2]",
-    link: "https://www.linkedin.com",
-  },
+  { Icon: FaFacebook, color: "text-blue-600", link: "#" },
+  { Icon: FaTwitter, color: "text-blue-400", link: "#" },
+  { Icon: FaInstagram, color: "text-pink-500", link: "#" },
+  { Icon: FaYoutube, color: "text-red-600", link: "#" },
+  { Icon: FaLinkedin, color: "text-blue-700", link: "#" },
 ];
-gsap.registerPlugin(Draggable);
 import { Draggable } from "gsap/Draggable";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 // IMAGES
 import Logo from "../../Images/Jaguar-logo.png";
@@ -112,22 +91,22 @@ const dealerCards = [
 const navItems = [
   {
     name: "Our Products",
-    path: "/OurProducts",
+    path: "/products",
     dropdown: [
-     {
-  title: "Passenger Tyres",
-  image: menuImg1,
-  link: "/products/petroleum",
-  description: "Reliable petroleum solutions.",
-  buttonText: "Explore Passenger Tyres"
-},
+      {
+        title: "Passenger Tyres",
+        image: menuImg1,
+        link: "/products/passenger-tyres",
+        description: "Reliable petroleum solutions.",
+        buttonText: "Explore Passenger Tyres",
+      },
 
       {
         title: "Petroleum Products",
         image: menuImg2,
-        link: "",
+        link: "/products/petroleum",
         description: "Reliable petroleum solutions.",
-        buttonText: "View Petroleum"
+        buttonText: "View Petroleum",
       },
       {
         title: "Lubricants",
@@ -150,57 +129,57 @@ const navItems = [
     ],
   },
   {
-    name: "Explore",
-    path: "/explore",
+    name: "AboutUs",
+    path: "/aboutus",
     dropdown: [
       {
-        title: "Company Overview",
+        title: "About Us",
         image: menuImg6,
-        link: "/explore/overview",
+        link: "/aboutus/overview",
         description: "Know more about our company.",
+        buttonText: "Learn More",
       },
       {
         title: "Sustainability",
         image: menuImg7,
-        link: "/explore/sustainability",
+        link: "/aboutus/sustainability",
         description: "Our commitment to sustainability.",
       },
       {
         title: "Innovation",
         image: menuImg8,
-        link: "/explore/innovation",
+        link: "/aboutus/innovation",
         description: "Driving innovation globally.",
       },
       {
         title: "Global Presence",
         image: menuImg9,
-        link: "/explore/global",
+        link: "/aboutus/global",
         description: "Our presence worldwide.",
       },
       {
         title: "Careers",
         image: menuImg10,
-        link: "/explore/careers",
+        link: "/aboutus/careers",
         description: "Join our team today.",
       },
     ],
   },
   {
     name: "Contact Us",
-    path: "/contact-us",
+    path: "/contact",
     dropdown: [
       {
         title: "Contact Us",
         image: menuImg11,
         link: "/contact/sales",
         description: "Reach our sales team.",
-        buttonText: "Connect now"
-
+        buttonText: "Connect now",
       },
-    
     ],
   },
 ];
+
 
 const categories = ["Tyres", "Batteries", "Lubricants"];
 const images = {
@@ -277,7 +256,8 @@ const Home = () => {
     });
 
     // 🔹 Fade-in cards
-    gsap.set(items, { opacity: 10 });
+    gsap.set(items, { opacity: 0 });
+
     gsap.to(items, {
       opacity: 1,
       stagger: 0.2,
@@ -367,8 +347,11 @@ const Home = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+  ScrollTrigger.getAll()
+    .filter(t => t.trigger === sections)
+    .forEach(t => t.kill());
+};
+
   }, []);
   const tireRef = useRef([]);
 
@@ -561,7 +544,6 @@ const Home = () => {
                     <button
                       key={index}
                       onMouseEnter={() => setHoveredIndex(index)}
-                     
                       className={`
       w-full text-left px-6 py-4 pl-10
       font-['Avenir',sans-serif]
@@ -585,159 +567,156 @@ const Home = () => {
                 </div>
 
                 {/* RIGHT IMAGE + TEXT + BUTTON */}
-             <div className="flex-1 relative overflow-hidden">
-  {/* Image changes based on hoveredIndex */}
-  <img
-    src={
-      hoveredIndex !== null
-        ? activeItem.dropdown[hoveredIndex].image
-        : activeItem.dropdown[0].image
-    }
-    alt={
-      hoveredIndex !== null
-        ? activeItem.dropdown[hoveredIndex].title
-        : activeItem.dropdown[0].title
-    }
-    className="w-full h-full object-cover transition-all duration-500"
-  />
+                <div className="flex-1 relative overflow-hidden">
+                  {/* Image changes based on hoveredIndex */}
+                  <img
+                    src={
+                      hoveredIndex !== null
+                        ? activeItem.dropdown[hoveredIndex].image
+                        : activeItem.dropdown[0].image
+                    }
+                    alt={
+                      hoveredIndex !== null
+                        ? activeItem.dropdown[hoveredIndex].title
+                        : activeItem.dropdown[0].title
+                    }
+                    className="w-full h-full object-cover transition-all duration-500"
+                  />
 
-  {/* Overlay with text & button */}
-  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
-    <div className="text-white max-w-lg">
-      {/* Description */}
-      <p className="text-sm mb-2 opacity-90">
-        {hoveredIndex !== null
-          ? activeItem.dropdown[hoveredIndex].description
-          : activeItem.dropdown[0].description}
-      </p>
+                  {/* Overlay with text & button */}
+                  <div className="absolute inset-0 bg-black/40 flex items-center px-10">
+                    <div className="text-white max-w-lg">
+                      {/* Description */}
+                      <p className="text-sm mb-2 opacity-90">
+                        {hoveredIndex !== null
+                          ? activeItem.dropdown[hoveredIndex].description
+                          : activeItem.dropdown[0].description}
+                      </p>
 
-      {/* Title */}
-      <h2 className="text-3xl  font-bold leading-snug mb-7">
-        {hoveredIndex !== null
-          ? activeItem.dropdown[hoveredIndex].title
-          : activeItem.dropdown[0].title}
-      </h2>
+                      {/* Title */}
+                      <h2 className="text-3xl  font-bold leading-snug mb-7">
+                        {hoveredIndex !== null
+                          ? activeItem.dropdown[hoveredIndex].title
+                          : activeItem.dropdown[0].title}
+                      </h2>
 
-      {/* Button per item */}
-      <Link
-        to={
-          hoveredIndex !== null
-            ? activeItem.dropdown[hoveredIndex].link
-            : activeItem.dropdown[0].link
-        }
-        className="px-10 py-4  bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
-      >
-        {hoveredIndex !== null
-          ? activeItem.dropdown[hoveredIndex].buttonText || "Explore Products"
-          : activeItem.dropdown[0].buttonText || "Explore Products"}
-      </Link>
-    </div>
-  </div>
-</div>
-
+                      {/* Button per item */}
+                      <Link
+                        to={
+                          hoveredIndex !== null
+                            ? activeItem.dropdown[hoveredIndex].link
+                            : activeItem.dropdown[0].link
+                        }
+                        className="px-10 py-4  bg-blue-600 hover:bg-blue-700 rounded-full text-sm font-semibold transition"
+                      >
+                        {hoveredIndex !== null
+                          ? activeItem.dropdown[hoveredIndex].buttonText ||
+                            "Explore Products"
+                          : activeItem.dropdown[0].buttonText ||
+                            "Explore Products"}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
             {/* MOBILE SIDEBAR */}
-          {/* MOBILE SIDEBAR */}
-<div className={`fixed top-0 left-0 w-80 h-full shadow-2xl bg-white z-50 transform transition-transform duration-300 ${
-  sidebarOpen ? "translate-x-0" : "-translate-x-full"
-}`}>
-  {/* Sidebar Header */}
-  <div className="flex items-center justify-between p-4 border-b border-gray-300">
-    <img src={Logo} alt="Logo" className="h-12 w-auto" />
-    <button
-      onClick={() => setSidebarOpen(false)}
-      className="text-gray-800 text-2xl p-1 transition-transform duration-500 hover:text-gray-600 hover:rotate-[190deg]"
-    >
-      <FaTimes />
-    </button>
-  </div>
+            {/* MOBILE SIDEBAR */}
+            <div
+              className={`fixed top-0 left-0 w-80 h-full shadow-2xl bg-white z-50 transform transition-transform duration-300 ${
+                sidebarOpen ? "translate-x-0" : "-translate-x-full"
+              }`}
+            >
+              {/* Sidebar Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-300">
+                <img src={Logo} alt="Logo" className="h-12 w-auto" />
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="text-gray-800 text-2xl p-1 transition-transform duration-500 hover:text-gray-600 hover:rotate-[190deg]"
+                >
+                  <FaTimes />
+                </button>
+              </div>
 
-  {/* Sidebar Menu */}
-  <div className="flex flex-col mt-4">
-  {navItems.map((item, idx) => (
-    <div
-      key={idx}
-      className={`flex flex-col ${
-        sidebarOpen ? `animate-rise-in` : `animate-rise-out`
-      }`}
-      style={{
-        animationDelay: `${idx * 200}ms`, // stagger appearance
-        fontSize: `${16 + idx * 2}px`, // gradually increasing font size
-      }}
-    >
-      <button
-        onClick={() =>
-          openSubmenuIndex === idx
-            ? setOpenSubmenuIndex(null)
-            : setOpenSubmenuIndex(idx)
-        }
-        className="flex items-center justify-between px-6 py-4 font-semibold text-gray-800 hover:bg-gray-100 rounded-md transition"
-      >
-        {item.name}
-        {item.dropdown && item.dropdown.length > 0 && (
-          <FaChevronRight
-            className={`transition-transform duration-300 text-gray-800 ${
-              openSubmenuIndex === idx ? "rotate-90" : ""
-            }`}
-          />
-        )}
-      </button>
+              {/* Sidebar Menu */}
+              <div className="flex flex-col mt-4">
+                {navItems.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex flex-col ${
+                      sidebarOpen ? `animate-rise-in` : `animate-rise-out`
+                    }`}
+                    style={{
+                      animationDelay: `${idx * 200}ms`, // stagger appearance
+                      fontSize: `${16 + idx * 2}px`, // gradually increasing font size
+                    }}
+                  >
+                    <button
+                      onClick={() =>
+                        openSubmenuIndex === idx
+                          ? setOpenSubmenuIndex(null)
+                          : setOpenSubmenuIndex(idx)
+                      }
+                      className="flex items-center justify-between px-6 py-4 font-semibold text-gray-800 hover:bg-gray-100 rounded-md transition"
+                    >
+                      {item.name}
+                      {item.dropdown && item.dropdown.length > 0 && (
+                        <FaChevronRight
+                          className={`transition-transform duration-300 text-gray-800 ${
+                            openSubmenuIndex === idx ? "rotate-90" : ""
+                          }`}
+                        />
+                      )}
+                    </button>
 
-      {/* Nested Submenu */}
-    {item.dropdown && item.dropdown.length > 0 && (
-  <div
-    className={`overflow-hidden transition-max-height duration-300 ${
-      openSubmenuIndex === idx ? "max-h-[500px]" : "max-h-0"
-    }`}
-  >
-    {item.dropdown.map((sub, subIdx) => (
-      <Link
-        key={subIdx}
-        to={sub.link || "#"}
-        className="block pl-12 pr-6 py-3 text-gray-800 text-base hover:bg-gray-100 rounded-md transition"
-        onClick={() => setSidebarOpen(false)}
-      >
-        {sub.title}
-      </Link>
-    ))}
-  </div>
-)}
+                    {/* Nested Submenu */}
+                    {item.dropdown && item.dropdown.length > 0 && (
+                      <div
+                        className={`overflow-hidden transition-max-height duration-300 ${
+                          openSubmenuIndex === idx ? "max-h-[500px]" : "max-h-0"
+                        }`}
+                      >
+                        {item.dropdown.map((sub, subIdx) => (
+                          <Link
+                            key={subIdx}
+                            to={sub.link || "#"}
+                            className="block pl-12 pr-6 py-3 text-gray-800 text-base hover:bg-gray-100 rounded-md transition"
+                            onClick={() => setSidebarOpen(false)}
+                          >
+                            {sub.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-    </div>
-  ))}
-</div>
-
-</div>
-
-
-
-
-{/* Mobile overlay */}
-{sidebarOpen && (
-  <div
-    className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
-    onClick={() => setSidebarOpen(false)}
-  />
-)}
-
-
+            {/* Mobile overlay */}
+            {sidebarOpen && (
+              <div
+                className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
           </div>
         </nav>
 
         {/* HERO CONTENT CENTER */}
-    <div className="relative z-40 flex items-end justify-center text-center 
-                mt-[300px] sm:mt-[400px] md:mt-[500px] lg:mt-[600px] px-4">
-  <div>
-    <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold drop-shadow-lg">
-      Built to Ride. Ready to Roll.
-    </h2>
-    <button className="mt-4 sm:mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-white text-black rounded-full text-sm sm:text-base font-medium shadow-lg hover:bg-[#0094de] hover:text-white transition">
-      Explore
-    </button>
-  </div>
-</div>
-
+        <div
+          className="relative z-40 flex items-end justify-center text-center 
+                mt-[300px] sm:mt-[400px] md:mt-[500px] lg:mt-[600px] px-4"
+        >
+          <div>
+            <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold drop-shadow-lg">
+              Built to Ride. Ready to Roll.
+            </h2>
+            <button className="mt-4 sm:mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-white text-black rounded-full text-sm sm:text-base font-medium shadow-lg hover:bg-[#0094de] hover:text-white transition">
+              Explore
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* PRODUCT SECTION */}
@@ -882,7 +861,7 @@ const Home = () => {
                     <img
                       src={warranty}
                       alt="Badge"
-                      className="relative right-50 top-30 w-28 md:w-32"
+                      className="relative right-[50px] top-[30px] w-28 md:w-32"
                     />
                   </div>
 
@@ -942,7 +921,12 @@ const Home = () => {
                       className="absolute bottom-45 right-10 md:right-67 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
                     />
                     <img
-                      ref={(el) => el && tireRef.current.push(el)}
+                      ref={(el) => {
+  if (el && !tireRef.current.includes(el)) {
+    tireRef.current.push(el);
+  }
+}}
+
                       src={tire}
                       alt="Tire"
                       className="absolute bottom-45 right-10 md:right-245 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
@@ -964,7 +948,7 @@ const Home = () => {
                     <img
                       src={warranty}
                       alt="Badge"
-                      className="relative right-50 top-30 w-28 md:w-32"
+                      className="relative right-[50px] top-[30px] w-28 md:w-32"
                     />
                   </div>
 
@@ -1044,7 +1028,7 @@ const Home = () => {
                     <img
                       src={warranty}
                       alt="Badge"
-                      className="relative right-50 top-30 w-28 md:w-32"
+                      className="relative right-[50px] top-[30px] w-28 md:w-32"
                     />
                   </div>
 

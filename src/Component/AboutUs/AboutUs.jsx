@@ -1,57 +1,48 @@
-import { useState, useEffect, useRef } from "react";
-import emailjs from "@emailjs/browser";
-
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   FaFacebook,
   FaTwitter,
   FaInstagram,
   FaYoutube,
   FaLinkedin,
+  FaChevronDown,
   FaBars,
   FaTimes,
-  FaChevronDown,
   FaChevronRight,
 } from "react-icons/fa";
 
-
-import gsap from "gsap";
-
-
-
-const socialIcons = [
-  { Icon: FaFacebook, color: "text-blue-600", link: "#" },
-  { Icon: FaTwitter, color: "text-blue-400", link: "#" },
-  { Icon: FaInstagram, color: "text-pink-500", link: "#" },
-  { Icon: FaYoutube, color: "text-red-600", link: "#" },
-  { Icon: FaLinkedin, color: "text-blue-700", link: "#" },
-];
-// IMAGES
+// Images
+import bgimg from "../../Images/innov-imggg-1.jpg";
+import Car from "../../Images/ZT-body.png";
+import tire from "../../Images/ZT-tire.png";
+import warranty from "../../Images/warranty-icon-1.png";
 import Logo from "../../Images/Jaguar-logo.png";
 import Banner from "../../Images/menupcr.jpg";
-
 import menuImg1 from "../../Images/menupcr.jpg";
 import menuImg2 from "../../Images/menupcr0.jpg";
 import menuImg3 from "../../Images/menupcr2.jpg";
 import menuImg4 from "../../Images/menupcr3.jpg";
 import menuImg5 from "../../Images/menupcr4.jpg";
-
 import menuImg6 from "../../Images/menupcr5.jpg";
 import menuImg7 from "../../Images/menupcr6.jpg";
 import menuImg8 from "../../Images/menupcr7.jpg";
 import menuImg9 from "../../Images/menupcr8.jpg";
 import menuImg10 from "../../Images/menupcr9.jpg";
-
 import menuImg11 from "../../Images/menupcr10.jpg";
-import menuImg12 from "../../Images/menupcr11.jpg"; // ✅ fixed
+import menuImg12 from "../../Images/menupcr11.jpg";
 import menuImg13 from "../../Images/menupcr12.jpg";
-import menuImg14 from "../../Images/menupcr13.jpg"; // ✅ fixed
+import menuImg14 from "../../Images/menupcr13.jpg";
 import menuImg15 from "../../Images/menupcr14.jpg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const navItems = [
   {
     name: "Our Products",
-    path: "/ContactUs",
+    path: "/AboutUs",
     dropdown: [
       {
         title: "Passenger Tyres",
@@ -165,12 +156,19 @@ const navItems = [
 
 
 
+const socialIcons = [
+  { Icon: FaFacebook, color: "text-blue-600", link: "#" },
+  { Icon: FaTwitter, color: "text-blue-400", link: "#" },
+  { Icon: FaInstagram, color: "text-pink-500", link: "#" },
+  { Icon: FaYoutube, color: "text-red-600", link: "#" },
+  { Icon: FaLinkedin, color: "text-blue-700", link: "#" },
+];
 
 
 
 
 
-const ContactUs = () => {
+const AboutUs = () => {
    
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
@@ -224,54 +222,90 @@ useEffect(() => {
 
 
 
-// text animation
  const titleRef = useRef(null);
-useEffect(() => {
-  if (!titleRef.current) return;
 
-  gsap.fromTo(
-    titleRef.current,
-    {
-      opacity: 0,
-      scale: 0.97,        // 🔽 less scale difference
-      y: 60,              // 🔽 smaller rise
-      transformOrigin: "50% 100%",
-    },
-    {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 1,        // 🔽 slightly faster
-      ease: "power2.out", // 🔽 softer ease
-      delay: 0.15,
-    }
-  );
-}, []);
-// ======================================
- const formRef = useRef();
+  useEffect(() => {
+    const lines = titleRef.current.querySelectorAll("span");
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current,
-        "YOUR_PUBLIC_KEY"
-      )
-      .then(
-        () => {
-          alert("Message sent successfully ✅");
-          formRef.current.reset();
+    gsap.fromTo(
+      lines,
+      { opacity: 0, y: 50 }, // start 50px below, invisible
+      {
+        opacity: 1,
+        y: 0, // move to normal position
+        duration: 1,
+        ease: "power2.out",
+        stagger: 0.2, // each line comes after 0.2s
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: true, // smooth scroll animation
         },
-        (error) => {
-          alert("Something went wrong ❌");
-          console.log(error.text);
-        }
-      );
-  };
+      }
+    );
+  }, []);
+// ======================================
 
+
+  const containerRef = useRef(null);
+  const tireRef = useRef([]);
+
+
+  // NAV HIDE ON SCROLL
+  useEffect(() => {
+    const handleScroll = () => setHideNav(window.scrollY > 0);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // HERO TEXT ANIMATION
+  useEffect(() => {
+    if (!titleRef.current) return;
+    gsap.fromTo(
+      titleRef.current,
+      { opacity: 0, scale: 0.97, y: 60, transformOrigin: "50% 100%" },
+      { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.15 }
+    );
+  }, []);
+
+  // HORIZONTAL SCROLL SECTIONS + TIRES ROTATION
+  useEffect(() => {
+    const sections = containerRef.current;
+    if (!sections || !sections.parentElement) return;
+
+    const totalWidth = sections.scrollWidth - window.innerWidth;
+    sections.parentElement.style.height = `${window.innerHeight + totalWidth}px`;
+
+    gsap.to(sections, {
+      x: -totalWidth,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sections,
+        start: "top top",
+        end: () => `+=${totalWidth}`,
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    tireRef.current.forEach((wheel) => {
+      gsap.to(wheel, {
+        rotation: (360 * sections.scrollWidth) / window.innerWidth,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sections,
+          start: "top top",
+          end: () => `+=${sections.scrollWidth}`,
+          scrub: true,
+        },
+      });
+    });
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
 
 
   return (
@@ -288,6 +322,8 @@ useEffect(() => {
 >
 </div>
 
+
+  <div className="absolute inset-0 bg-black/40" />
 
         {/* NAVBAR */}
 
@@ -562,49 +598,89 @@ useEffect(() => {
   ref={titleRef}
   className="
     absolute inset-0
-    flex items-center justify-center
-    text-white text-center
+    flex flex-col items-center justify-start
+    text-center
     px-4
+    pt-[400px]
+    font-extrabold
+    bg-clip-text text-transparent
+    pointer-events-none
   "
   style={{
     fontFamily: "'Avenir LT Pro', sans-serif",
-    fontWeight: 800,
     lineHeight: "1.2",
-    fontSize: "clamp(22px, 5vw, 48px)",
+    fontSize: "clamp(22px, 5vw, 80px)",
+    backgroundImage: `url(${Banner})`,
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    backgroundSize: "150%",
+    backgroundPosition: "center",
   }}
 >
-  WE'RE HAPPY TO HELP!
+  <span className="">
+    Driving innovation.<br />
+    Creating impact.<br />
+    Delivering value.
+  </span>
+
+
+
+
+
+
+
 </h1>
 
-<div
-  className="
-    absolute bottom-2 left-1/2 -translate-x-1/2
-    flex flex-col items-center
-    animate-bounce
-  "
->
-  {/* LINE */}
 
 
-  {/* ARROW (SVG) — 100% ATTACHED */}
-<svg
-  viewBox="0 0 24 140"
-  className="h-[140px] w-[28px]"
-  fill="none"
-  stroke="white"
-  strokeWidth="2.5"
-  strokeLinecap="round"
-  strokeLinejoin="round"
->
-  {/* FULL HEIGHT LINE */}
-  <path d="M12 0 V120" />
 
-  {/* ARROW HEAD */}
-  <path d="M5 113 L12 120 L19 113" />
-</svg>
 
-</div>
 
+<section className=" overflow-x-hidden">
+  {/* HERO */}
+  <div className="relative w-screen h-screen overflow-hidden">
+    {/* BACKGROUND */}
+    <div
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: `url(${Banner})` }}
+    />
+
+    {/* OVERLAY */}
+    <div className="absolute inset-0 bg-black/40" />
+
+    {/* TEXT */}
+     <div
+      ref={titleRef}
+      className="
+        relative z-10
+        w-full
+        h-full
+        flex items-center justify-center
+        text-center
+        px-4
+      "
+    >
+      <h1
+        className="
+          font-extrabold
+          text-white
+        "
+        style={{
+          fontFamily: "'Avenir LT Pro', sans-serif",
+          lineHeight: "1.5",
+          fontSize: "clamp(22px, 5vw, 50px)",
+        }}
+      >
+        <span>Zeetex powers global journeys</span>
+        <br />
+        <span>with tyres, batteries & lubricants</span>
+        <br />
+        <span>built for safety, performance & progress</span>
+      </h1>
+    </div>
+
+  </div>
+</section>
 
 
 
@@ -615,150 +691,241 @@ useEffect(() => {
  
 
 
- <section className="bg-gray-50 py-20 px-4">
-  <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg p-10">
-    {/* Header */}
-    <div className="text-center mb-12">
-      <h2 className="text-4xl font-semibold text-gray-900">
-        Let’s Talk
-      </h2>
-      <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-        You can reach us by phone, email, or by sending a message using the form
-        below, and we’ll get back to you as soon as possible.
-      </p>
-    </div>
+    <section className="relative w-full  h-[500vh]">
+        <div className="relative h-screen overflow-hidden">
+          <div
+            ref={containerRef}
+            className="sticky top-0 flex h-screen flex-nowrap"
+          >
+            {/* PAGE 1 */}
+            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
+             <div
+        className="relative w-screen h-screen bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgimg})` }}
+      >
+        {/* overlay */}
+        <div className="absolute inset-0 bg-blue-900/40" />
 
-    {/* Form */}
-    <form ref={formRef} onSubmit={sendEmail} className="space-y-8">
-      {/* Name */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Name <span className="text-red-500">*</span>
-        </label>
-        <div className="grid sm:grid-cols-2 gap-6">
-          <input
-            name="first_name"
-            required
-            placeholder="First Name"
-            className="input"
-          />
-          <input
-            name="last_name"
-            required
-            placeholder="Last Name"
-            className="input"
-          />
+        <div className="relative z-10 w-full h-full px-10 lg:px-20">
+
+          {/* LEFT BOTTOM */}
+          <div className="absolute left-10 lg:left-20 bottom-20 text-white">
+            <img src={Logo} alt="Logo" className="w-45 mb-8" />
+
+          <h1
+  className="text-5xl lg:text-8xl font-bold leading-tight
+             bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700
+             bg-clip-text text-transparent"
+>
+  OUR <br />
+  JOURNEY OF <br />
+  INNOVATION & <br />
+  PERFORMANCE
+</h1>
+
+          </div>
+
+          {/* TOP RIGHT TEXT */}
+<div className="absolute top-16 right-10 lg:right-20 max-w-xl">
+  <p
+    className="p-6 text-white"
+    style={{
+      fontFamily: "avenir-lt-pro, sans-serif",
+      fontSize: "18px",
+      fontWeight: 600,
+      lineHeight: "28px",
+      color: "rgb(255,255,255)",
+    }}
+  >
+    Since 2005, Zeetex has been delivering advanced tyres, batteries,
+    and lubricants across 146+ countries. With a focus on safety,
+    performance, and cutting-edge technology, we aim to create
+    meaningful impact for customers and society worldwide.
+  </p>
+</div>
+
+
+
+          {/* BOTTOM RIGHT TYRE */}
+<div className="relative w-full h-full">
+  <img
+    ref={(el) => {
+      if (el && !tireRef.current.includes(el)) {
+        tireRef.current.push(el);
+      }
+    }}
+    src={tire}
+    alt="Tire"
+    className="absolute bottom-14 right-32 w-80 drop-shadow-xl"
+  />
+</div>
+
         </div>
       </div>
+            </div>
 
-      {/* Country & City */}
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Country
-          </label>
-          <input
-            name="country"
-            placeholder="Country"
-            className="input"
-          />
+            {/* PAGE 2 */}
+            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
+              <div className="w-full px-20">
+                {/* LEFT CONTENT */}
+                <div className="lg:pl-20 text-gray-900">
+                  <div className="flex mt-30 justify-between">
+                    <h1 className="text-3xl md:text-5xl mt-20 font-semibold leading-snug">
+                      Tyres designed to own the asphalt.
+                    </h1>
+                    <img
+                      src={warranty}
+                      alt="Badge"
+                      className="relative right-[50px] top-[30px] w-28 md:w-32"
+                    />
+                  </div>
+
+                  <h2 className="text-5xl md:text-8xl pt-7 mb-5 font-bold text-blue-700">
+                    SU5000 MAX
+                  </h2>
+
+                  {/* FEATURES */}
+                  <div className="space-y-6 pt-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        🛞
+                      </div>
+                      <p className="text-lg font-semibold">
+                        MAXIMISED ROAD CONTACT
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        ⚙️
+                      </div>
+                      <p className="text-lg font-semibold">
+                        ENGINEERED FOR COMFORT
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        🚀
+                      </div>
+                      <p className="text-lg font-semibold">
+                        SPORTY LOOKS, SERIOUS PERFORMANCE
+                      </p>
+                    </div>
+                  </div>
+
+                  <button className="mt-4 px-10 py-3 bg-blue-700 text-white rounded-full text-lg font-semibold hover:bg-blue-800 transition shadow-lg">
+                    Explore
+                  </button>
+                </div>
+
+                {/* RIGHT SIDE */}
+                <div>
+                  <div className="relative flex justify-center items-center h-full">
+                    <img
+                      src={Car}
+                      alt="Car Model"
+                      className="max-w-[1200px] relative left-30 bottom-40 object-contain drop-shadow-2xl"
+                    />
+
+                    {/* TIRES */}
+                    <img
+                      ref={(el) => el && tireRef.current.push(el)}
+                      src={tire}
+                      alt="Tire"
+                      className="absolute bottom-45 right-10 md:right-67 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
+                    />
+                    <img
+                      ref={(el) => el && tireRef.current.push(el)}
+                      src={tire}
+                      alt="Tire"
+                      className="absolute bottom-45 right-10 md:right-245 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* PAGE 3 */}
+            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
+              <div className="w-full px-20">
+                {/* LEFT CONTENT */}
+                <div className="lg:pl-20 text-gray-900">
+                  <div className="flex mt-30 justify-between">
+                    <h1 className="text-3xl md:text-5xl mt-20 font-semibold leading-snug">
+                      Tyres designed to own the asphalt.
+                    </h1>
+                    <img
+                      src={warranty}
+                      alt="Badge"
+                      className="relative right-[50px] top-[30px] w-28 md:w-32"
+                    />
+                  </div>
+
+                  <h2 className="text-5xl md:text-8xl pt-7 mb-5 font-bold text-blue-700">
+                    SU5000 MAX
+                  </h2>
+
+                  {/* FEATURES */}
+                  <div className="space-y-6 pt-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        🛞
+                      </div>
+                      <p className="text-lg font-semibold">
+                        MAXIMISED ROAD CONTACT
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        ⚙️
+                      </div>
+                      <p className="text-lg font-semibold">
+                        ENGINEERED FOR COMFORT
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
+                        🚀
+                      </div>
+                      <p className="text-lg font-semibold">
+                        SPORTY LOOKS, SERIOUS PERFORMANCE
+                      </p>
+                    </div>
+                  </div>
+
+                  <button className="mt-4 px-10 py-3 bg-blue-700 text-white rounded-full text-lg font-semibold hover:bg-blue-800 transition shadow-lg">
+                    Explore
+                  </button>
+                </div>
+
+                {/* RIGHT SIDE */}
+                <div>
+                  <div className="relative flex justify-center items-center h-full">
+                    <img
+                      src={Car}
+                      alt="Car Model"
+                      className="max-w-[1200px] relative left-30 bottom-40 object-contain drop-shadow-2xl"
+                    />
+
+                    {/* TIRES */}
+                    <img
+                      ref={(el) => el && tireRef.current.push(el)}
+                      src={tire}
+                      alt="Tire"
+                      className="absolute bottom-45 right-10 md:right-67 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
+                    />
+                    <img
+                      ref={(el) => el && tireRef.current.push(el)}
+                      src={tire}
+                      alt="Tire"
+                      className="absolute bottom-45 right-10 md:right-245 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            City
-          </label>
-          <input
-            name="city"
-            placeholder="City"
-            className="input"
-          />
-        </div>
-      </div>
-
-      {/* Phone & Email */}
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            name="phone"
-            required
-            placeholder="+880"
-            className="input"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            name="email"
-            type="email"
-            required
-            placeholder="you@example.com"
-            className="input"
-          />
-        </div>
-      </div>
-
-      {/* Enquiry & Product */}
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Enquiry Type <span className="text-red-500">*</span>
-          </label>
-          <select name="enquiry" required className="input">
-            <option value="">Select enquiry</option>
-            <option>General</option>
-            <option>Support</option>
-            <option>Sales</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Product Type <span className="text-red-500">*</span>
-          </label>
-          <select name="product" required className="input">
-            <option value="">Select product</option>
-            <option>Web Application</option>
-            <option>Mobile App</option>
-            <option>UI / UX Design</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Message */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Your Message
-        </label>
-        <textarea
-          name="message"
-          rows="5"
-          placeholder="Write your message here..."
-          className="input resize-none"
-        />
-      </div>
-
-      {/* Submit */}
-      <div className="pt-4 text-center">
-        <button
-          type="submit"
-          className="inline-flex items-center justify-center rounded-full
-          bg-blue-700 px-12 py-3 text-white font-medium
-          hover:bg-blue-800 transition
-          focus:outline-none focus:ring-4 focus:ring-blue-500/30"
-        >
-          Submit Message
-        </button>
-      </div>
-    </form>
-  </div>
-</section>
+      </section>
 
 
 
@@ -768,4 +935,4 @@ useEffect(() => {
   );
 };
 
-export default ContactUs;
+export default AboutUs;
