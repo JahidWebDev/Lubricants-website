@@ -6,6 +6,7 @@ import Home from "./Component/Home/Home";
 import Footer from "./Component/Footer/Footer";
 import OurProducts from "./Component/OurProducts/OurProducts";
 import PageLoader from "./Component/PageLoader";
+import ContactUs from "./Component/ContactUs/ContactUs";
 
 // Wrapper for route transition
 function RouteWithLoader({ children }) {
@@ -54,11 +55,8 @@ function App() {
           <Route path="/explore/careers" element={<Home />} />
 
           {/* Contact */}
-          <Route path="/contact/sales" element={<Home />} />
-          <Route path="/contact/support" element={<Home />} />
-          <Route path="/contact/distributor" element={<Home />} />
-          <Route path="/contact/media" element={<Home />} />
-          <Route path="/contact/location" element={<Home />} />
+          <Route path="/contact/sales" element={<ContactUs/>} />
+       
         </Routes>
       </RouteWithLoader>
 

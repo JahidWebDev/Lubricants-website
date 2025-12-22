@@ -190,35 +190,14 @@ const navItems = [
     path: "/contact-us",
     dropdown: [
       {
-        title: "Sales Inquiry",
+        title: "Contact Us",
         image: menuImg11,
         link: "/contact/sales",
         description: "Reach our sales team.",
+        buttonText: "Connect now"
+
       },
-      {
-        title: "Technical Support",
-        image: menuImg12,
-        link: "/contact/support",
-        description: "24/7 technical support.",
-      },
-      {
-        title: "Distributor Network",
-        image: menuImg13,
-        link: "/contact/distributor",
-        description: "Our global distributors.",
-      },
-      {
-        title: "Media Contact",
-        image: menuImg14,
-        link: "/contact/media",
-        description: "Press & media inquiries.",
-      },
-      {
-        title: "Location Map",
-        image: menuImg15,
-        link: "/contact/location",
-        description: "Find our locations.",
-      },
+    
     ],
   },
 ];
@@ -240,7 +219,7 @@ const Home = () => {
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
 
   // ==============================
-  const hoverTimeout = useRef(null);
+
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
