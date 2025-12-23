@@ -43,10 +43,10 @@ function App() {
 
           {/* Products */}
           <Route path="products/passenger-tyres" element={<OurProducts />} />
-          <Route path="/products/petroleum" element={<OurProducts />} />
+          {/* <Route path="/products/petroleum" element={<OurProducts />} />
           <Route path="/products/lubricants" element={<OurProducts />} />
           <Route path="/products/gases" element={<OurProducts />} />
-          <Route path="/products/agriculture" element={<OurProducts />} />
+          <Route path="/products/agriculture" element={<OurProducts />} /> */}
 
           {/* Explore */}
           <Route path="/aboutus/overview" element={<AboutUs/>} />

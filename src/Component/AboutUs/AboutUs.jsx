@@ -15,12 +15,19 @@ import {
 } from "react-icons/fa";
 
 // Images
-import bgimg from "../../Images/innov-imggg-1.jpg";
-import Car from "../../Images/ZT-body.png";
-import tire from "../../Images/ZT-tire.png";
-import warranty from "../../Images/warranty-icon-1.png";
 import Logo from "../../Images/Jaguar-logo.png";
 import Banner from "../../Images/menupcr.jpg";
+import bgimg from "../../Images/innov-imggg-1.jpg";
+import tire from "../../Images/ZT-tire.png";
+import tiretwo from "../../Images/ZT-tiretwo.png";
+import indone from "../../Images/Product/indone.jpg";
+import zeetex from "../../Images/Product/zeetex-est-img.jpg";
+import launch from "../../Images/Product/tyre-launch.jpg";
+import outro from "../../Images/Product/outro.jpg";
+import idiadalogo from "../../Images/Product/idiada-logo-1.png";
+import idiadamap from "../../Images/Product/idiada-map-01.png";
+import world from "../../Images/world.jpg";
+
 import menuImg1 from "../../Images/menupcr.jpg";
 import menuImg2 from "../../Images/menupcr0.jpg";
 import menuImg3 from "../../Images/menupcr2.jpg";
@@ -305,6 +312,30 @@ useEffect(() => {
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
+
+// =======================================
+    const countRefs = useRef([]);
+
+  useEffect(() => {
+    countRefs.current.forEach((el) => {
+      const end = el.getAttribute("data-end");
+
+      gsap.fromTo(
+        el,
+        { innerText: 0 },
+        {
+          innerText: end,
+          duration: 1.8,
+          ease: "power1.out",
+          snap: { innerText: 1 },
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+          },
+        }
+      );
+    });
   }, []);
 
 
@@ -671,7 +702,7 @@ useEffect(() => {
           fontSize: "clamp(22px, 5vw, 50px)",
         }}
       >
-        <span>Zeetex powers global journeys</span>
+        <span>Zeetex powers global journeys    </span>
         <br />
         <span>with tyres, batteries & lubricants</span>
         <br />
@@ -691,243 +722,319 @@ useEffect(() => {
  
 
 
-    <section className="relative w-full  h-[500vh]">
-        <div className="relative h-screen overflow-hidden">
-          <div
-            ref={containerRef}
-            className="sticky top-0 flex h-screen flex-nowrap"
-          >
-            {/* PAGE 1 */}
-            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
-             <div
-        className="relative w-screen h-screen bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgimg})` }}
+<section className="relative w-full">
+  <div className="relative h-screen overflow-hidden">
+    <div
+      ref={containerRef}
+      className="sticky top-0 flex h-screen flex-nowrap"
+    >
+      {/* PAGE 1 */}
+      <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
+        <div
+          className="relative w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${bgimg})` }}
+        >
+          <div className="absolute inset-0 bg-blue-900/40" />
+          <div className="relative z-10 w-full h-full px-10 lg:px-20">
+            {/* LEFT BOTTOM */}
+            <div className="absolute left-10 lg:left-20 bottom-20 text-white">
+              <img src={Logo} alt="Logo" className="w-44 mb-8" />
+              <h1 className="text-5xl lg:text-8xl font-bold leading-tight
+                             bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700
+                             bg-clip-text text-transparent">
+                OUR <br />
+                JOURNEY OF <br />
+                INNOVATION & <br />
+                PERFORMANCE
+              </h1>
+            </div>
+
+            {/* TOP RIGHT TEXT */}
+            <div className="absolute top-16 right-10 lg:right-20 max-w-xl">
+              <p className="p-6 text-white" style={{ fontFamily: "avenir-lt-pro, sans-serif", fontSize: "18px", fontWeight: 600, lineHeight: "28px" }}>
+                Since 2005, Zeetex has been delivering advanced tyres, batteries,
+                and lubricants across 146+ countries. With a focus on safety,
+                performance, and cutting-edge technology, we aim to create
+                meaningful impact for customers and society worldwide.
+              </p>
+            </div>
+
+            {/* BOTTOM RIGHT TYRE */}
+            <img
+              ref={(el) => {
+                if (el && !tireRef.current.includes(el)) {
+                  tireRef.current.push(el);
+                }
+              }}
+              src={tire}
+              alt="Tire"
+              className="absolute bottom-14 right-32 w-80 drop-shadow-xl"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 2 */}
+      <div className="w-screen h-screen flex shrink-0">
+        {/* LEFT SIDE */}
+        <div className="w-1/2 flex flex-col justify-between bg-white px-8 lg:px-20 pb-16">
+          <img
+            src={zeetex}
+            alt="Zeetex Car"
+            className="w-full max-w-[760px] h-[440px] object-cover ml-auto mr-[-60px]"
+          />
+          <div className="mt-20">
+            <h1 style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "100px", fontWeight: 600, lineHeight: "100px", color: "rgb(202, 219, 255)" }}>2004</h1>
+            <h2 style={{ fontFamily: "'Avenir', sans-serif", fontSize: "40px", fontWeight: 900, lineHeight: "40px", color: "rgb(27, 66, 152)" }}>ZEETEX WAS ESTABLISHED</h2>
+            <p className="max-w-md" style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "18px", fontWeight: 600, lineHeight: "28px", color: "rgb(35, 31, 32)" }}>
+              Zeetex was established and introduced its first summer tyres,
+              beginning a global journey.
+            </p>
+          </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="w-1/2 relative h-full overflow-hidden">
+          <img src={indone} alt="Manufacturing" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute bottom-16 left-0 px-12 text-white">
+            <h1 style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "100px", fontWeight: 600, lineHeight: "100px", WebkitTextFillColor: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.6)" }}>2014</h1>
+            <h2 className="mb-4" style={{ fontFamily: "'Avenir', sans-serif", fontSize: "40px", fontWeight: 900, lineHeight: "40px", color: "rgb(255, 255, 255)" }}>MANUFACTURING IN INDONESIA</h2>
+            <p className="max-w-md whitespace-nowrap" style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "18px", fontWeight: 600, lineHeight: "28px", color: "rgb(255, 255, 255)" }}>
+              Zeetex extends manufacturing to Indonesia to keep up with the global demand.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 3 */}
+<div className="w-screen h-[800px] shrink-0 bg-white relative px-8 lg:px-20 py-16">
+  {/* LEFT CONTENT */}
+  <div className="max-w-[1800px]">
+    {/* IMAGE */}
+    <div className="w-full h-[440px] overflow-hidden">
+      <img
+        src={launch}
+        alt="Zeetex Car"
+        className="w-full h-full object-cover"
+      />
+    </div>
+
+    {/* TEXT CONTENT */}
+    <div className="mt-20">
+      <h1
+        style={{
+          fontFamily: "'avenir-lt-pro', sans-serif",
+          fontSize: "100px",
+          fontWeight: 600,
+          lineHeight: "100px",
+          color: "rgb(202, 219, 255)",
+        }}
       >
-        {/* overlay */}
-        <div className="absolute inset-0 bg-blue-900/40" />
+        2022
+      </h1>
+      <h2
+        style={{
+          fontFamily: "'Avenir', sans-serif",
+          fontSize: "40px",
+          fontWeight: 900,
+          lineHeight: "40px",
+          color: "rgb(27, 66, 152)",
+        }}
+      >
+        MAX PRODUCT LAUNCH
+      </h2>
+      <p
+        className="whitespace-nowrap overflow-hidden"
+        style={{
+          fontFamily: "'avenir-lt-pro', sans-serif",
+          fontSize: "18px",
+          fontWeight: 600,
+          lineHeight: "55px",
+          color: "rgb(35, 31, 32)",
+        }}
+      >
+        Zeetex launches the Max Range, proudly manufactured in Thailand for global markets.
+      </p>
+    </div>
+  </div>
+</div>
 
-        <div className="relative z-10 w-full h-full px-10 lg:px-20">
 
-          {/* LEFT BOTTOM */}
-          <div className="absolute left-10 lg:left-20 bottom-20 text-white">
-            <img src={Logo} alt="Logo" className="w-45 mb-8" />
 
-          <h1
-  className="text-5xl lg:text-8xl font-bold leading-tight
-             bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700
-             bg-clip-text text-transparent"
->
-  OUR <br />
-  JOURNEY OF <br />
-  INNOVATION & <br />
-  PERFORMANCE
-</h1>
+      {/* PAGE 4 */}
+      <div className="w-screen h-screen relative shrink-0 overflow-hidden">
+        <img src={outro} alt="Driving Forward" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative z-10 w-full h-full flex justify-between">
+          <div className="flex items-end px-12 pb-16">
+            <h1 className="uppercase" style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "64px", fontWeight: 800, lineHeight: "72px", color: "rgba(255,255,255,0.9)" }}>
+              DRIVING FORWARD.<br />TOGETHER.
+            </h1>
+          </div>
+          <div className="flex items-start px-12 pt-16 max-w-xl text-right">
+            <p style={{ fontFamily: "'avenir-lt-pro', sans-serif", fontSize: "18px", fontWeight: 500, lineHeight: "28px", color: "#ffffff" }}>
+              At Zeetex, every mile is a promise of progress, and every innovation drives us closer to a smarter, safer future.<br /><br />
+              Join us as we continue shaping the road ahead - one revolution at a time.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+ <section className="relative bg-gradient-to-b from-[#061a3a] via-[#06142e] to-black text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Top Center Text */}
+        <div className="text-center  max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide">
+            TESTED &amp; TRUSTED
+          </h2> 
+          <p className="mt-6 font-avenir text-[18px] font-semibold leading-[30px] text-white">
+  Zeetex tyres have displayed extra-ordinary performance in independent
+  tests against top-tier brands at the IDIADA testing facility in Spain.
+</p>
+
+        </div>
+
+        {/* Bottom Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+          {/* Left Content */}
+          <div>
+           <p className="mb-6 font-avenir text-[18px] font-semibold leading-[30px] tracking-widest text-white">
+  THE FACILITY
+</p>
+
+
+            <img
+              src={idiadalogo}
+              alt="IDIADA Logo"
+              className="w-56 mb-6"
+            />
+<p className="max-w-md font-avenir text-[18px] font-semibold leading-[30px] text-white">
+  IDIADA is an Official Technical Service for European Homologation
+  offering comprehensive tyre testing for homologation, development,
+  and characterization, including rolling resistance, wet grip, noise
+  emissions, and dynamic performance.
+</p>
 
           </div>
 
-          {/* TOP RIGHT TEXT */}
-<div className="absolute top-16 right-10 lg:right-20 max-w-xl">
-  <p
-    className="p-6 text-white"
-    style={{
-      fontFamily: "avenir-lt-pro, sans-serif",
-      fontSize: "18px",
-      fontWeight: 600,
-      lineHeight: "28px",
-      color: "rgb(255,255,255)",
-    }}
-  >
-    Since 2005, Zeetex has been delivering advanced tyres, batteries,
-    and lubricants across 146+ countries. With a focus on safety,
-    performance, and cutting-edge technology, we aim to create
-    meaningful impact for customers and society worldwide.
+          {/* Right Content */}
+          <div className="relative">
+           <p className="mb-6 text-[18px] font-semibold leading-[30px] tracking-widest text-white text-center lg:text-right font-avenir">
+  TESTS CONDUCTED
+</p>
+
+
+            <img
+              src={idiadamap}
+              alt="IDIADA Global Tests Map"
+              className="w-full max-w-xl ml-auto"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+<section className="relative text-white py-20 px-6 overflow-hidden">
+  {/* Background */}
+  <div
+    className="absolute inset-0 bg-cover bg-center scale-105"
+    style={{ backgroundImage: `url(${world})` }}
+  />
+  <div className="absolute inset-0 bg-black/75" />
+
+  <div className="relative max-w-6xl mx-auto text-center">
+    {/* Heading */}
+    <h2 className="font-avenir font-black text-[54px] leading-[62px] mb-14">
+      DRIVEN BY INNOVATION,<br />
+      BACKED BY TRUST.
+    </h2>
+
+    {/* Tire Center */}
+    <div className="relative my-16 flex justify-center">
+      <img
+        src={tiretwo}
+        alt="Zeetex Tyre"
+        className="w-[320px] md:w-[420px] drop-shadow-xl"
+      />
+
+     
+    </div>
+
+    {/* Stats */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
+      {/* 145+ */}
+     
+<div className="text-center">
+  <div className="flex items-baseline justify-center gap-1 font-avenirlt text-[69px] leading-[69px] font-semibold">
+    <span
+      ref={(el) => (countRefs.current[0] = el)}
+      data-end="145"
+    >
+      0
+    </span>
+    <span>+</span>
+  </div>
+
+  <p className="mt-3 text-[22px] leading-[34px] font-semibold">
+    Countries & Growing Worldwide
   </p>
 </div>
 
 
 
-          {/* BOTTOM RIGHT TYRE */}
-<div className="relative w-full h-full">
-  <img
-    ref={(el) => {
-      if (el && !tireRef.current.includes(el)) {
-        tireRef.current.push(el);
-      }
-    }}
-    src={tire}
-    alt="Tire"
-    className="absolute bottom-14 right-32 w-80 drop-shadow-xl"
-  />
-</div>
 
+
+      {/* 15 */}
+      <div>
+        <div
+          ref={(el) => (countRefs.current[1] = el)}
+          data-end="15"
+          className="font-avenirlt text-[69px] leading-[69px] font-semibold"
+        >
+          0
         </div>
+        <p className="mt-3 text-[22px] leading-[34px] font-semibold">
+          Minutes per tyre sold globally
+        </p>
       </div>
-            </div>
 
-            {/* PAGE 2 */}
-            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
-              <div className="w-full px-20">
-                {/* LEFT CONTENT */}
-                <div className="lg:pl-20 text-gray-900">
-                  <div className="flex mt-30 justify-between">
-                    <h1 className="text-3xl md:text-5xl mt-20 font-semibold leading-snug">
-                      Tyres designed to own the asphalt.
-                    </h1>
-                    <img
-                      src={warranty}
-                      alt="Badge"
-                      className="relative right-[50px] top-[30px] w-28 md:w-32"
-                    />
-                  </div>
-
-                  <h2 className="text-5xl md:text-8xl pt-7 mb-5 font-bold text-blue-700">
-                    SU5000 MAX
-                  </h2>
-
-                  {/* FEATURES */}
-                  <div className="space-y-6 pt-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        🛞
-                      </div>
-                      <p className="text-lg font-semibold">
-                        MAXIMISED ROAD CONTACT
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        ⚙️
-                      </div>
-                      <p className="text-lg font-semibold">
-                        ENGINEERED FOR COMFORT
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        🚀
-                      </div>
-                      <p className="text-lg font-semibold">
-                        SPORTY LOOKS, SERIOUS PERFORMANCE
-                      </p>
-                    </div>
-                  </div>
-
-                  <button className="mt-4 px-10 py-3 bg-blue-700 text-white rounded-full text-lg font-semibold hover:bg-blue-800 transition shadow-lg">
-                    Explore
-                  </button>
-                </div>
-
-                {/* RIGHT SIDE */}
-                <div>
-                  <div className="relative flex justify-center items-center h-full">
-                    <img
-                      src={Car}
-                      alt="Car Model"
-                      className="max-w-[1200px] relative left-30 bottom-40 object-contain drop-shadow-2xl"
-                    />
-
-                    {/* TIRES */}
-                    <img
-                      ref={(el) => el && tireRef.current.push(el)}
-                      src={tire}
-                      alt="Tire"
-                      className="absolute bottom-45 right-10 md:right-67 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
-                    />
-                    <img
-                      ref={(el) => el && tireRef.current.push(el)}
-                      src={tire}
-                      alt="Tire"
-                      className="absolute bottom-45 right-10 md:right-245 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* PAGE 3 */}
-            <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-300 shrink-0">
-              <div className="w-full px-20">
-                {/* LEFT CONTENT */}
-                <div className="lg:pl-20 text-gray-900">
-                  <div className="flex mt-30 justify-between">
-                    <h1 className="text-3xl md:text-5xl mt-20 font-semibold leading-snug">
-                      Tyres designed to own the asphalt.
-                    </h1>
-                    <img
-                      src={warranty}
-                      alt="Badge"
-                      className="relative right-[50px] top-[30px] w-28 md:w-32"
-                    />
-                  </div>
-
-                  <h2 className="text-5xl md:text-8xl pt-7 mb-5 font-bold text-blue-700">
-                    SU5000 MAX
-                  </h2>
-
-                  {/* FEATURES */}
-                  <div className="space-y-6 pt-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        🛞
-                      </div>
-                      <p className="text-lg font-semibold">
-                        MAXIMISED ROAD CONTACT
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        ⚙️
-                      </div>
-                      <p className="text-lg font-semibold">
-                        ENGINEERED FOR COMFORT
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 border-2 border-orange-500 rounded-full flex items-center justify-center text-2xl">
-                        🚀
-                      </div>
-                      <p className="text-lg font-semibold">
-                        SPORTY LOOKS, SERIOUS PERFORMANCE
-                      </p>
-                    </div>
-                  </div>
-
-                  <button className="mt-4 px-10 py-3 bg-blue-700 text-white rounded-full text-lg font-semibold hover:bg-blue-800 transition shadow-lg">
-                    Explore
-                  </button>
-                </div>
-
-                {/* RIGHT SIDE */}
-                <div>
-                  <div className="relative flex justify-center items-center h-full">
-                    <img
-                      src={Car}
-                      alt="Car Model"
-                      className="max-w-[1200px] relative left-30 bottom-40 object-contain drop-shadow-2xl"
-                    />
-
-                    {/* TIRES */}
-                    <img
-                      ref={(el) => el && tireRef.current.push(el)}
-                      src={tire}
-                      alt="Tire"
-                      className="absolute bottom-45 right-10 md:right-67 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
-                    />
-                    <img
-                      ref={(el) => el && tireRef.current.push(el)}
-                      src={tire}
-                      alt="Tire"
-                      className="absolute bottom-45 right-10 md:right-245 h-36 w-20 md:h-40 md:w-70 object-contain drop-shadow-xl"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* 5 */}
+      <div>
+        <div
+          ref={(el) => (countRefs.current[2] = el)}
+          data-end="5"
+          className="font-avenirlt text-[69px] leading-[69px] font-semibold"
+        >
+          0
         </div>
-      </section>
+        <p className="mt-3 text-[22px] leading-[34px] font-semibold">
+          Year Manufacturing & Material Warranty
+        </p>
+      </div>
+    </div>
 
+    {/* Description */}
+    <p className="max-w-3xl mx-auto text-[18px] leading-[30px] font-semibold mb-12">
+      Zeetex delivers premium tyres with advanced silica, unique patterns,
+      and superior control, backed by Thai innovation, global reach, full
+      warranty, and a complete range for every mobility need.
+    </p>
 
+    {/* CTA */}
+    <button className="px-10 py-3 rounded-full bg-blue-600 hover:bg-blue-700 transition font-semibold text-[18px] shadow-md">
+      Find Dealers
+    </button>
+  </div>
+</section>
 
 
 

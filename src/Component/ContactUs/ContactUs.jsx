@@ -51,12 +51,12 @@ import menuImg15 from "../../Images/menupcr14.jpg";
 const navItems = [
   {
     name: "Our Products",
-    path: "/ContactUs",
+    path: "/products",
     dropdown: [
       {
         title: "Passenger Tyres",
         image: menuImg1,
-        link: "/products/petroleum",
+        link: "/products/passenger-tyres",
         description: "Reliable petroleum solutions.",
         buttonText: "Explore Passenger Tyres",
       },
@@ -89,74 +89,43 @@ const navItems = [
     ],
   },
   {
-    name: "Explore",
-    path: "/explore",
+    name: "AboutUs",
+    path: "/aboutus",
     dropdown: [
       {
-        title: "Company Overview",
+        title: "About Us",
         image: menuImg6,
-        link: "/explore/overview",
-        description: "Know more about our company.",
+        link: "/aboutus/overview",
+        description: "Driven by innovation, trusted worldwide. Zeetex delivers tyres, batteries, and lubricants designed for every road, in over 145+ countries.",
+        buttonText: "Learn More",
       },
       {
-        title: "Sustainability",
+        title: "Stories",
         image: menuImg7,
-        link: "/explore/sustainability",
-        description: "Our commitment to sustainability.",
+        link: "/aboutus/sustainability",
+        description: "Discover the latest Zeetex stories innovations, milestones, and events around the world.",
+       buttonText: "Explore",
       },
       {
-        title: "Innovation",
+        title: "Find a Dealer",
         image: menuImg8,
-        link: "/explore/innovation",
+        link: "/aboutus/innovation",
         description: "Driving innovation globally.",
+         buttonText: "Explore",
       },
-      {
-        title: "Global Presence",
-        image: menuImg9,
-        link: "/explore/global",
-        description: "Our presence worldwide.",
-      },
-      {
-        title: "Careers",
-        image: menuImg10,
-        link: "/explore/careers",
-        description: "Join our team today.",
-      },
+      
     ],
   },
   {
     name: "Contact Us",
-    path: "/contact-us",
+    path: "/contact",
     dropdown: [
       {
-        title: "Sales Inquiry",
+        title: "Contact Us",
         image: menuImg11,
         link: "/contact/sales",
         description: "Reach our sales team.",
-      },
-      {
-        title: "Technical Support",
-        image: menuImg12,
-        link: "/contact/support",
-        description: "24/7 technical support.",
-      },
-      {
-        title: "Distributor Network",
-        image: menuImg13,
-        link: "/contact/distributor",
-        description: "Our global distributors.",
-      },
-      {
-        title: "Media Contact",
-        image: menuImg14,
-        link: "/contact/media",
-        description: "Press & media inquiries.",
-      },
-      {
-        title: "Location Map",
-        image: menuImg15,
-        link: "/contact/location",
-        description: "Find our locations.",
+        buttonText: "Connect now",
       },
     ],
   },
