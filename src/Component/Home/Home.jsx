@@ -52,14 +52,9 @@ import menuImg5 from "../../Images/menupcr4.jpg";
 import menuImg6 from "../../Images/menupcr5.jpg";
 import menuImg7 from "../../Images/menupcr6.jpg";
 import menuImg8 from "../../Images/menupcr7.jpg";
-import menuImg9 from "../../Images/menupcr8.jpg";
-import menuImg10 from "../../Images/menupcr9.jpg";
+
 
 import menuImg11 from "../../Images/menupcr10.jpg";
-import menuImg12 from "../../Images/menupcr11.jpg"; // ✅ fixed
-import menuImg13 from "../../Images/menupcr12.jpg";
-import menuImg14 from "../../Images/menupcr13.jpg"; // ✅ fixed
-import menuImg15 from "../../Images/menupcr14.jpg";
 
 // IMAGES
 import eventsMain from "../../Images/menucontactus-1.jpg";
@@ -142,7 +137,7 @@ const navItems = [
       {
         title: "Stories",
         image: menuImg7,
-        link: "/aboutus/sustainability",
+        link: "/stories/sustainability",
         description: "Discover the latest Zeetex stories innovations, milestones, and events around the world.",
        buttonText: "Explore",
       },

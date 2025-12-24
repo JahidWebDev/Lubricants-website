@@ -8,6 +8,7 @@ import OurProducts from "./Component/OurProducts/OurProducts";
 import PageLoader from "./Component/PageLoader";
 import ContactUs from "./Component/ContactUs/ContactUs";
 import AboutUs from "./Component/AboutUs/AboutUs";
+import Stories from "./Component/stories/Stories";
 
 // Wrapper for route transition
 function RouteWithLoader({ children }) {
@@ -36,34 +37,66 @@ function RouteWithLoader({ children }) {
 function App() {
   return (
     <BrowserRouter>
-      <RouteWithLoader>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/OurProducts" element={<OurProducts />} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RouteWithLoader>
+              <Home />
+            </RouteWithLoader>
+          }
+        />
 
-          {/* Products */}
-          <Route path="products/passenger-tyres" element={<OurProducts />} />
-          {/* <Route path="/products/petroleum" element={<OurProducts />} />
-          <Route path="/products/lubricants" element={<OurProducts />} />
-          <Route path="/products/gases" element={<OurProducts />} />
-          <Route path="/products/agriculture" element={<OurProducts />} /> */}
+        <Route
+          path="/OurProducts"
+          element={
+            <RouteWithLoader>
+              <OurProducts />
+            </RouteWithLoader>
+          }
+        />
 
-          {/* Explore */}
-          <Route path="/aboutus/overview" element={<AboutUs/>} />
-          <Route path="/explore/sustainability" element={<Home />} />
-          <Route path="/explore/innovation" element={<Home />} />
-          <Route path="/explore/global" element={<Home />} />
-          <Route path="/explore/careers" element={<Home />} />
+        <Route
+          path="/products/passenger-tyres"
+          element={
+            <RouteWithLoader>
+              <OurProducts />
+            </RouteWithLoader>
+          }
+        />
 
-          {/* Contact */}
-          <Route path="/contact/sales" element={<ContactUs/>} />
-       
-        </Routes>
-      </RouteWithLoader>
+        <Route
+          path="/aboutus/overview"
+          element={
+            <RouteWithLoader>
+              <AboutUs />
+            </RouteWithLoader>
+          }
+        />
+
+        <Route
+          path="/stories/sustainability"
+          element={
+            <RouteWithLoader>
+              <Stories />
+            </RouteWithLoader>
+          }
+        />
+
+        <Route
+          path="/contact/sales"
+          element={
+            <RouteWithLoader>
+              <ContactUs />
+            </RouteWithLoader>
+          }
+        />
+      </Routes>
 
       <Footer />
     </BrowserRouter>
   );
 }
+
 
 export default App;
