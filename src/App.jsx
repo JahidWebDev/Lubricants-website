@@ -8,7 +8,7 @@ import OurProducts from "./Component/OurProducts/OurProducts";
 import PageLoader from "./Component/PageLoader";
 import ContactUs from "./Component/ContactUs/ContactUs";
 import AboutUs from "./Component/AboutUs/AboutUs";
-import Stories from "./Component/Stories/Stories";
+import Stories from "./Component/stories/Stories";
 
 
 // Wrapper for route transition
