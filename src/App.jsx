@@ -8,7 +8,8 @@ import OurProducts from "./Component/OurProducts/OurProducts";
 import PageLoader from "./Component/PageLoader";
 import ContactUs from "./Component/ContactUs/ContactUs";
 import AboutUs from "./Component/AboutUs/AboutUs";
-import Stories from "./Component/stories/Stories";
+import Stories from "./Component/Stories/Stories";
+
 
 // Wrapper for route transition
 function RouteWithLoader({ children }) {
