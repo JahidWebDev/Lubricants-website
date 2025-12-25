@@ -9,6 +9,7 @@ import PageLoader from "./Component/PageLoader";
 import ContactUs from "./Component/ContactUs/ContactUs";
 import AboutUs from "./Component/AboutUs/AboutUs";
 import Stories from "./Component/Stories/Stories";
+import DealerLocator from "./Component/DealerLocator/DealerLocator";
 
 
 
@@ -92,6 +93,14 @@ function App() {
           element={
             <RouteWithLoader>
               <ContactUs />
+            </RouteWithLoader>
+          }
+        />
+        <Route
+          path="/dealer/locatorn"
+          element={
+            <RouteWithLoader>
+              <DealerLocator />
             </RouteWithLoader>
           }
         />

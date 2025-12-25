@@ -144,7 +144,7 @@ const navItems = [
       {
         title: "Find a Dealer",
         image: menuImg8,
-        link: "/aboutus/innovation",
+        link: "/dealer/locatorn",
         description: "Driving innovation globally.",
          buttonText: "Explore",
       },
@@ -178,6 +178,9 @@ const imagestwo = [sm1, sm2, sm3, sm4, sm5, sm6];
 
 // Register the plugin
 const CARD_WIDTH = 320;
+
+
+
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
