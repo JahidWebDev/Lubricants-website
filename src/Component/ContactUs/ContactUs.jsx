@@ -240,7 +240,7 @@ useEffect(() => {
   return (
     <section>
       {/* HERO SECTION */}
-      <div className="relative ">
+         <div className="relative ">
      <div
   className="
     relative w-full h-screen

@@ -28,7 +28,7 @@ const socialIcons = [
 ];
 // IMAGES
 import Logo from "../../Images/Jaguar-logo.png";
-import Banner from "../../Images/stories.jpg";
+import Banner from "../../Images/menupcr.jpg";
 
 import menuImg1 from "../../Images/menupcr.jpg";
 import menuImg2 from "../../Images/menupcr0.jpg";
@@ -128,13 +128,109 @@ const navItems = [
 
 
 
+import ev1 from "../../Images/BLOG-IMAGE-04_11zon-2048x1360-1.jpg";
+import ev2 from "../../Images/car-drifting-2025-03-08-08-23-12-utc.jpg";
+import ev3 from "../../Images/choosing-right-car-tires-2025-03-15-22-03-49-utc.jpg";
+import ev4 from "../../Images/choosing-right-car-tires-2025-03-15-22-03-49-utccopy.jpg";
+import ev5 from "../../Images/choosing-right-car-tires-2025-03-15-22-03-49-utccopyonecopy.jpg";
+import ev6 from "../../Images/EE9GtolT71DbjTtyk1M79iiMJ.jpeg";
+
+import t1 from "../../Images/l1yxpFxcUzZgyAKnM3rY6QsOP.jpg";
+import t2 from "../../Images/L447ShiXwOScxI6gSAqs6s4J9.jpg";
+import t3 from "../../Images/Xv5rkuqjPm6a3FThftkhlubVU.jpg";
+
+import b1 from "../../Images/menupcr.jpg";
+import b2 from "../../Images/menupcr2.jpg";
+import b3 from "../../Images/menupcr6.jpg";
+
+
+
+
+
+
+export const eventsData = [
+  {
+    id: 1,
+    title: "Zeetex Drift Championship",
+    date: "September 25, 2025",
+    image: ev1,
+  },
+  {
+    id: 2,
+    title: "Zeetex 5000 Max Series launch in Saudi Arabia",
+    date: "September 21, 2025",
+    image: ev2,
+  },
+  {
+    id: 3,
+    title: "Zeetex 5000 Max Series Launch Lebanon",
+    date: "September 21, 2025",
+    image: ev3,
+  },
+  {
+    id: 4,
+    title: "Zeetex 5000 Max Series Launch in the Philippines",
+    date: "September 21, 2025",
+    image: ev4,
+  },
+  {
+    id: 5,
+    title: "Singapore Dinner Event 2025",
+    date: "March 13, 2025",
+    image: ev5,
+  },
+  {
+    id: 6,
+    title: "Automechanika 2024",
+    date: "December 10, 2024",
+    image: ev6,
+  },
+];
+
+export const testimonialsData = [
+  { id: 1, title: "Zeetex Qatar", image: t1 },
+  { id: 2, title: "Zeetex UAE", image: t2 },
+  { id: 3, title: "Zeetex Iraq", image: t3 },
+];
+
+export const blogsData = [
+  {
+    id: 1,
+    title: "Debunking Tyre Myths: Separating Fact from Fiction",
+    date: "September 24, 2025",
+    desc:
+      "Think you know tyres? Discover the truth behind common myths and drive smarter, safer, and more confidently.",
+    image: b1,
+  },
+  {
+    id: 2,
+    title: "Tyre Technology: Exploring the Latest Innovations",
+    date: "September 24, 2025",
+    desc:
+      "From self-healing to airless and energy-generating designs, tyre tech is advancing fast.",
+    image: b2,
+  },
+  {
+    id: 3,
+    title: "Exploring the Factors Behind Tyre Performance",
+    date: "September 24, 2025",
+    desc:
+      "Tread, pressure, size, and habits all affect how your tyres perform.",
+    image: b3,
+  },
+];
 
 
 
 
 
 const Stories = () => {
-   
+  
+
+
+const [activeTab, setActiveTab] = useState("Events"); // ✅ ADD THIS
+
+ 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
 
@@ -211,7 +307,7 @@ useEffect(() => {
   );
 }, []);
 // ======================================
- 
+
 
 
 
@@ -286,29 +382,28 @@ useEffect(() => {
             <div>
               <div className="hidden md:flex items-center space-x-5">
                 {socialIcons.map(({ Icon, color, link }, idx) => (
-                  <a
-                    key={idx}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`
-                group p-2 rounded-full transition-all duration-300
-                ${
-                  activeDropdown
-                    ? "bg-black/5 hover:bg-black/10"
-                    : "bg-white/10 hover:bg-white/20"
-                }
-              `}
-                  >
-                    <Icon
-                      size={20}
-                      className={`
-                  transition-colors duration-300
-                  ${activeDropdown ? "text-black" : "text-white"}
-                  ${color}
-                `}
-                    />
-                  </a>
+               <Link
+  key={idx}
+  to={link}
+  className={`
+    group p-2 rounded-full transition-all duration-300
+    ${
+      activeDropdown
+        ? "bg-black/5 hover:bg-black/10"
+        : "bg-white/10 hover:bg-white/20"
+    }
+  `}
+>
+  <Icon
+    size={20}
+    className={`
+      transition-colors duration-300
+      ${activeDropdown ? "text-black" : "text-white"}
+      ${color}
+    `}
+  />
+</Link>
+
                 ))}
               </div>
 
@@ -336,32 +431,32 @@ useEffect(() => {
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {/* LEFT MENU */}
-                <div className="group w-[300px] bg-[#ededed] border-r border-gray-200">
-                  {activeItem.dropdown.map((sub, index) => (
-                    <button
-                      key={index}
-                      onMouseEnter={() => setHoveredIndex(index)}
-                      className={`
-      w-full text-left px-6 py-4 pl-10
-      font-['Avenir',sans-serif]
-      text-[15px] font-bold leading-[22.5px]
-      text-[#080808]
+              <div className="group w-[300px] bg-[#ededed] border-r border-gray-200">
+  {activeItem?.dropdown?.map((sub, index) => (
+    <button
+      key={index}
+      onMouseEnter={() => setHoveredIndex(index)}
+      className={`
+        w-full text-left px-6 py-4 pl-10
+        font-['Avenir',sans-serif]
+        text-[15px] font-bold leading-[22.5px]
+        text-[#080808]
+        transition-colors duration-200
+        hover:text-[rgb(27,66,152)]
+        ${
+          // ✅ Highlight hovered item or fallback to first item
+          hoveredIndex === index ||
+          (hoveredIndex === null && index === 0)
+            ? "bg-white"
+            : ""
+        }
+      `}
+    >
+      {sub.title}
+    </button>
+  ))}
+</div>
 
-      ${
-        hoveredIndex === index ||
-        (hoveredIndex === null && activeIndex === index)
-          ? "bg-white"
-          : ""
-      }
-
-      hover:text-[rgb(27,66,152)]
-      transition-colors duration-200
-    `}
-                    >
-                      {sub.title}
-                    </button>
-                  ))}
-                </div>
 
                 {/* RIGHT IMAGE + TEXT + BUTTON */}
                 <div className="flex-1 relative overflow-hidden">
@@ -506,22 +601,16 @@ useEffect(() => {
     flex items-center justify-center
     text-white text-center
     px-4
-    uppercase
   "
   style={{
-    fontFamily: "Avenir, sans-serif",
-    fontWeight: 900,
-    fontSize: "54px",
-    lineHeight: "64px",
-    color: "rgb(255, 255, 255)",
+    fontFamily: "'Avenir LT Pro', sans-serif",
+    fontWeight: 800,
+    lineHeight: "1.2",
+    fontSize: "clamp(22px, 5vw, 48px)",
   }}
 >
-  The roads we conquer,<br />
-  the innovations we craft,<br />
-  the journeys we power.<br />
-  Welcome to the world of Zeetex.
+  WE'RE HAPPY TO HELP!
 </h1>
-
 
 <div
   className="
@@ -562,6 +651,113 @@ useEffect(() => {
  
 
 
+        <div className="grid grid-cols-1 md:grid-cols-3 h-[280px]">
+        {["Events", "Testimonials", "Blogs"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className="relative group"
+          >
+            <img
+              src={
+                tab === "Events"
+                  ? ev1
+                  : tab === "Testimonials"
+                  ? t1
+                  : b1
+              }
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* Overlay */}
+            <div
+              className={`absolute inset-0 transition ${
+                activeTab === tab
+                  ? "bg-black/60"
+                  : "bg-black/40 group-hover:bg-black/60"
+              }`}
+            />
+
+            {/* Text */}
+   <div className="relative z-10 flex h-full items-center justify-center">
+  <div className="text-center text-white">
+    <h2 className="text-4xl font-semibold">{tab}</h2>
+  </div>
+
+  {/* ACTIVE BADGE */}
+  {activeTab === tab && (
+    <span
+      className="
+        absolute bottom-6 left-6
+        px-4 py-1
+        text-sm font-medium
+        rounded-full
+        bg-blue-600 text-white
+        shadow-md
+      "
+    >
+      Active
+    </span>
+  )}
+</div>
+
+          </button>
+        ))}
+      </div>
+
+      {/* ================= CONTENT ================= */}
+      <section className="bg-white py-24">
+        <div className="max-w-6xl mx-auto px-6">
+
+          {/* EVENTS */}
+          {activeTab === "Events" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
+              {eventsData.map((item) => (
+                <div key={item.id}>
+                  <img
+                    src={item.image}
+                    className="rounded-xl h-[220px] w-full object-cover"
+                  />
+                  <p className="text-sm text-gray-500 mt-4">{item.date}</p>
+                  <h3 className="mt-1 text-lg font-semibold">{item.title}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* TESTIMONIALS */}
+          {activeTab === "Testimonials" && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-14">
+              {testimonialsData.map((item) => (
+                <div key={item.id}>
+                  <img
+                    src={item.image}
+                    className="rounded-xl h-[260px] w-full object-cover"
+                  />
+                  <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* BLOGS */}
+          {activeTab === "Blogs" && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-14">
+              {blogsData.map((item) => (
+                <div key={item.id}>
+                  <img
+                    src={item.image}
+                    className="rounded-xl h-[220px] w-full object-cover"
+                  />
+                  <p className="text-sm text-gray-500 mt-4">{item.date}</p>
+                  <h3 className="mt-1 text-lg font-semibold">{item.title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
 
 
 
